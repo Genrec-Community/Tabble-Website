@@ -11,7 +11,7 @@ import {
 } from "@/lib/site/content";
 import { HeroPhone, DEMO_MENU } from "../phone-demo";
 import { OldWaySection } from "../sections/old-way";
-import { KdsStageSection } from "../sections/kds-stage";
+import { OrderRelaySection } from "../sections/order-relay";
 import { FoundingTableSection } from "../sections/founding-table";
 import { Reveal, Stagger, StaggerItem } from "../reveal";
 import { Section, H2, CTAButtons, PillBadge } from "../ui-bits";
@@ -475,7 +475,7 @@ export function HomePage() {
       <HeroSection />
       <OldWaySection />
       <StepsSection />
-      <KdsStageSection />
+      <OrderRelaySection />
       <FeaturesSection />
       <FoundingTableSection />
       <FaqTeaserSection />

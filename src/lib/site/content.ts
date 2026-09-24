@@ -138,30 +138,48 @@ export const FOUNDING = {
   },
   perks: [
     {
+      course: "First course",
       title: "Founding pricing, locked for life",
+      tag: "forever",
       body: "Whatever plan you choose stays at founding rates for as long as you're with us.",
     },
     {
+      course: "Second course",
       title: "Your menu, set up by us",
+      tag: "on the house",
       body: "We build your menu, structure your modifiers and guide the photo style — you review and go live.",
     },
     {
+      course: "Third course",
       title: "A direct line to the founders",
+      tag: "no queue",
       body: "Not a support queue. You tell us what your floor needs; we ship it and tell you when it's live.",
     },
     {
+      course: "To finish",
       title: "Priority on everything",
+      tag: "first, always",
       body: "New features, new payment methods, new cities — founding restaurants go first, always.",
     },
   ],
+  menu: {
+    eyebrow: "Tabble · founding dinner service",
+    title: "The founding menu",
+    sub: "Served to the first fifty restaurants — never repeated.",
+    cta: "Reserve your table",
+    footnote: "One seat per restaurant · founding pricing closes at fifty",
+  },
   cta: "Request early access",
 };
 
 export const PROOF = {
   kicker: "Behind the pass",
   headline: "Every order lands the moment it's placed.",
-  sub: "This is the screen your kitchen runs on. Table numbers, items, guest-typed notes — no waiter re-entry, no shouted modifications, no printer between the guest and the chef.",
-  liveChip: "Order #1042 · Table 6 · just placed",
+  sub: "No waiter re-entry, no shouted modifications, no printer between the guest and the chef. Watch one order make the whole trip — from a guest's thumb to your kitchen screen.",
+  phoneLabel: "Guest's phone",
+  kitchenLabel: "Your kitchen screen",
+  timerCaption: "tap → screen",
+  wireCaption: "no printer · no re-entry · no shouting",
   callouts: [
     "Guest-typed notes reach the chef unedited",
     "New orders light up the instant they land",

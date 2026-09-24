@@ -235,23 +235,6 @@
 }
 
 /* ─── Founding table tent craft ────────────────────────────────── */
-.tent {
-  transition:
-    transform 0.22s cubic-bezier(0.2, 0, 0, 1),
-    filter 0.22s cubic-bezier(0.2, 0, 0, 1);
-}
-.tent:hover,
-.tent:focus-visible {
-  transform: translateY(-3px);
-  filter: drop-shadow(0 8px 16px rgba(249, 115, 22, 0.45));
-}
-.tent svg path {
-  transition: fill 0.22s ease, stroke 0.22s ease;
-}
-.tent svg text {
-  transition: fill 0.22s ease;
-}
-
 /* Ambient sweep light drifting across the board */
 @keyframes tentBreath {
   0%,
@@ -264,6 +247,94 @@
 }
 .tent-ambient {
   animation: tentBreath 2.4s ease-in-out infinite;
+}
+
+/* Contact shadow under a tent — stays on the ground while the tent lifts */
+.tent-shadow {
+  transition:
+    opacity 0.24s cubic-bezier(0.2, 0, 0, 1),
+    transform 0.24s cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* Pendant lamp cones breathing over the founding board */
+@keyframes lampBreath {
+  0%,
+  100% {
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.lamp-cone {
+  animation: lampBreath 6.5s ease-in-out infinite;
+}
+
+/* ─── Order-relay craft (proof section) ─────────────────────────── */
+/* The wire: dashes that flow while an order is in flight */
+@keyframes wireDashH {
+  to {
+    background-position-x: 13px;
+  }
+}
+@keyframes wireDashV {
+  to {
+    background-position-y: 13px;
+  }
+}
+.relay-wire {
+  opacity: 0.55;
+  background-image: repeating-linear-gradient(
+    90deg,
+    rgba(249, 115, 22, 0.75) 0 5px,
+    transparent 5px 13px
+  );
+}
+.relay-wire.is-live {
+  opacity: 1;
+  animation: wireDashH 0.42s linear infinite;
+  filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.4));
+}
+.relay-wire-v {
+  opacity: 0.55;
+  background-image: repeating-linear-gradient(
+    180deg,
+    rgba(249, 115, 22, 0.75) 0 5px,
+    transparent 5px 13px
+  );
+}
+.relay-wire-v.is-live {
+  opacity: 1;
+  animation: wireDashV 0.42s linear infinite;
+  filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.4));
+}
+
+/* The travelling order chip — motion streak in its wake */
+.relay-packet {
+  box-shadow:
+    -26px 0 30px -12px rgba(249, 115, 22, 0.7),
+    0 6px 20px rgba(0, 0, 0, 0.5);
+}
+.relay-packet-v {
+  box-shadow:
+    0 -26px 30px -12px rgba(249, 115, 22, 0.7),
+    0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Place-order button breathing glow while it waits to be pressed */
+@keyframes ctaBreath {
+  0%,
+  100% {
+    box-shadow: 0 6px 22px -8px rgba(224, 96, 10, 0.55);
+  }
+  50% {
+    box-shadow:
+      0 6px 26px -6px rgba(224, 96, 10, 0.75),
+      0 0 0 7px rgba(224, 96, 10, 0.12);
+  }
+}
+.cta-breath {
+  animation: ctaBreath 2.2s ease-in-out infinite;
 }
 
 .rise {
@@ -293,12 +364,12 @@
     transform: none;
   }
   .live-ping,
-  .tent-ambient {
+  .tent-ambient,
+  .lamp-cone,
+  .relay-wire.is-live,
+  .relay-wire-v.is-live,
+  .cta-breath {
     animation: none;
-  }
-  .tent:hover,
-  .tent:focus-visible {
-    transform: none;
   }
   html {
     scroll-behavior: auto;

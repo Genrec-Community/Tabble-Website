@@ -3,26 +3,28 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, ChefHat, CircleDot } from "lucide-react";
+import { RELAY_ORDERS, orderLines } from "@/lib/site/relay";
 
 const EASE = [0.2, 0, 0, 1] as const;
 
-type KdsOrder = {
+export type KdsStatus = "new" | "cooking" | "served";
+
+export type DisplayOrder = {
   id: number;
   table: number;
   items: string[];
   note?: string;
+  status: KdsStatus;
+  uid: number;
 };
 
-const ROTATION: KdsOrder[] = [
-  { id: 1042, table: 6, items: ["2× Butter Chicken", "4× Garlic Naan"], note: "One mild" },
-  { id: 1043, table: 2, items: ["1× Paneer Tikka", "2× Lassi"], note: "Jain paneer" },
-  { id: 1044, table: 9, items: ["1× Dal Makhani", "3× Butter Naan", "1× Jeera Rice"] },
-  { id: 1045, table: 4, items: ["2× Chilli Chicken", "1× Fried Rice"], note: "Extra spicy" },
-  { id: 1046, table: 11, items: ["1× Tandoori Platter", "2× Naan"] },
-  { id: 1047, table: 7, items: ["2× Veg Biryani", "1× Raita"] },
-];
-
-type DisplayOrder = KdsOrder & { status: "new" | "cooking" | "served"; uid: number };
+/** Rotation labels derived from the shared relay data (uncontrolled mode). */
+const ROTATION = RELAY_ORDERS.map((o) => ({
+  id: o.id,
+  table: o.table,
+  items: orderLines(o),
+  note: o.note,
+}));
 
 const STATIC: DisplayOrder[] = [
   { ...ROTATION[1], status: "new", uid: 1 },
@@ -37,16 +39,35 @@ const STATUS_META = {
   served: { label: "Served", icon: Check, cls: "bg-leaf/10 text-leaf border-leaf/30" },
 } as const;
 
-export function KitchenDisplay() {
+/**
+ * The Tabble kitchen display.
+ *
+ * Uncontrolled (no props): runs its own order rotation — used on the
+ * Features page. Controlled (`orders` prop): renders exactly the orders
+ * given, so the order-relay scene can sync it to the guest's phone.
+ * `landedUid` triggers a one-shot arrival flash on that order card.
+ */
+export function KitchenDisplay({
+  orders,
+  landedUid = null,
+  dense = false,
+  className = "",
+}: {
+  orders?: DisplayOrder[];
+  landedUid?: number | null;
+  dense?: boolean;
+  className?: string;
+}) {
   const reduced = useReducedMotion();
-  const [orders, setOrders] = useState<DisplayOrder[]>(STATIC);
+  const controlled = orders !== undefined;
+  const [internalOrders, setInternalOrders] = useState<DisplayOrder[]>(STATIC);
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || controlled) return;
     const t = setInterval(() => {
       setTick((v) => v + 1);
-      setOrders((prev) => {
+      setInternalOrders((prev) => {
         const next = ROTATION[(tick + 1) % ROTATION.length];
         const aged = prev.map((o, i) =>
           i === 0
@@ -59,16 +80,35 @@ export function KitchenDisplay() {
       });
     }, 3800);
     return () => clearInterval(t);
-  }, [reduced, tick]);
+  }, [reduced, tick, controlled]);
+
+  const list = orders ?? internalOrders;
 
   return (
     <div
-      className="overflow-hidden rounded-3xl border border-espresso-2/60 bg-espresso shadow-[0_40px_80px_-32px_rgba(34,17,7,0.55)]"
+      className={`relative overflow-hidden rounded-3xl border border-espresso-2/60 bg-espresso shadow-[0_40px_80px_-32px_rgba(34,17,7,0.55)] ${className}`}
       role="img"
       aria-label="The Tabble kitchen display: guest orders arrive in real time with table numbers, items and status — new, cooking, served."
     >
+      {/* one-shot warm screen flash when an order lands */}
+      {dense && (
+        <AnimatePresence>
+          {landedUid !== null && list.some((o) => o.uid === landedUid) && (
+            <motion.div
+              key={`screen-flash-${landedUid}`}
+              initial={{ opacity: reduced ? 0 : 0.22 }}
+              animate={{ opacity: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.55, ease: "easeOut" }}
+              className="pointer-events-none absolute inset-0 z-20 rounded-3xl bg-tangerine"
+              aria-hidden="true"
+            />
+          )}
+        </AnimatePresence>
+      )}
+
       {/* window bar */}
-      <div className="flex items-center justify-between border-b border-cream/10 px-5 py-3.5">
+      <div className="flex items-center justify-between border-b border-cream/10 px-4 py-3 sm:px-5 sm:py-3.5">
         <div className="flex items-center gap-3">
           <span className="flex gap-1.5" aria-hidden="true">
             <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]/70" />
@@ -86,11 +126,12 @@ export function KitchenDisplay() {
         </span>
       </div>
 
-      <div className="grid gap-3 p-4 sm:grid-cols-2 sm:p-5">
+      <div className={dense ? "grid gap-2.5 p-3.5" : "grid gap-3 p-4 sm:grid-cols-2 sm:p-5"}>
         <AnimatePresence initial={false} mode="popLayout">
-          {orders.map((order) => {
+          {list.map((order) => {
             const meta = STATUS_META[order.status];
             const Icon = meta.icon;
+            const justLanded = dense && order.uid === landedUid;
             return (
               <motion.article
                 key={order.uid}
@@ -99,12 +140,23 @@ export function KitchenDisplay() {
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={reduced ? undefined : { opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.45, ease: EASE }}
-                className={`rounded-2xl border p-4 ${
+                className={`relative rounded-2xl border p-4 ${
                   order.status === "new"
                     ? "border-tangerine/50 bg-espresso-2 shadow-[0_0_0_1px_rgba(249,115,22,0.25),0_12px_32px_-16px_rgba(249,115,22,0.4)]"
                     : "border-cream/10 bg-espresso-2/60"
                 }`}
               >
+                {/* arrival ring flash */}
+                {justLanded && (
+                  <motion.span
+                    key={`ring-${landedUid}`}
+                    initial={{ boxShadow: "0 0 0 0 rgba(249,115,22,0.55)" }}
+                    animate={{ boxShadow: "0 0 0 18px rgba(249,115,22,0)" }}
+                    transition={{ duration: 0.8, ease: "easeOut" }}
+                    className="pointer-events-none absolute inset-0 rounded-2xl"
+                    aria-hidden="true"
+                  />
+                )}
                 <div className="flex items-center justify-between gap-2">
                   <p className="font-display text-base font-semibold text-cream">
                     Table {order.table}
