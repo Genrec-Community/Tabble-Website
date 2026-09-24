@@ -47,17 +47,17 @@ function Tent({
   const fill = lit
     ? "#f97316"
     : ambient
-      ? "rgba(249,115,22,0.10)"
+      ? "rgba(249,115,22,0.16)"
       : "rgba(255,251,246,0.05)";
   const stroke = lit
     ? "#fb923c"
     : ambient
-      ? "rgba(249,115,22,0.5)"
+      ? "rgba(249,115,22,0.62)"
       : "rgba(255,251,246,0.3)";
   const glyph = lit
     ? "rgba(34,17,7,0.62)"
     : ambient
-      ? "rgba(255,237,217,0.5)"
+      ? "rgba(255,237,217,0.62)"
       : "rgba(255,251,246,0.34)";
   const textColor = lit ? "#221107" : ambient ? "#ffedd9" : "rgba(255,251,246,0.6)";
 
@@ -75,7 +75,7 @@ function Tent({
       {/* the tent — lifts toward the lamp on hover */}
       <svg
         viewBox="0 0 44 40"
-        className={`h-auto w-full max-w-[42px] transition-transform duration-200 ease-[cubic-bezier(0.2,0,0,1)] group-hover:-translate-y-[7px] group-hover:scale-[1.07] group-focus-visible:-translate-y-[7px] ${
+        className={`h-auto w-full max-w-[46px] transition-transform duration-200 ease-[cubic-bezier(0.2,0,0,1)] group-hover:-translate-y-[7px] group-hover:scale-[1.07] group-focus-visible:-translate-y-[7px] sm:max-w-[42px] ${
           ambient ? "tent-ambient" : ""
         } ${claimed ? "scale-[1.07] -translate-y-[7px]" : ""}`}
         aria-hidden="true"
@@ -188,7 +188,7 @@ export function FoundingTableSection() {
       ? `Table № ${pad(claimed)} — stamped yours`
       : hovered !== null
         ? `${FOUNDING.board.hover} ${pad(hovered)} ${FOUNDING.board.hoverSuffix}`
-        : "Pick your table";
+        : "Tap any tent to claim your seat";
 
   // "Be one of the first 50…" — light up the number.
   const [hPre, hPost = ""] = FOUNDING.headline.split("50");
@@ -227,10 +227,10 @@ export function FoundingTableSection() {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid items-start gap-10 lg:grid-cols-12 lg:gap-12 xl:gap-16">
+        <div className="mt-10 grid items-start gap-10 lg:mt-12 lg:grid-cols-12 lg:gap-12 xl:gap-16">
           {/* the founding board */}
           <Reveal delay={0.1} className="lg:col-span-7">
-            <div className="relative overflow-hidden rounded-[1.75rem] border border-cream/12 bg-espresso-2/50 p-5 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] backdrop-blur-sm sm:p-8">
+            <div className="relative overflow-hidden rounded-[1.75rem] border border-cream/12 bg-espresso-2/50 p-4 shadow-[0_40px_80px_-40px_rgba(0,0,0,0.8)] backdrop-blur-sm sm:p-8">
               {/* pendant lamp light pooling on the board */}
               <div
                 className="lamp-cone pointer-events-none absolute -top-8 left-[14%] h-48 w-48 bg-[radial-gradient(ellipse_at_top,rgba(249,115,22,0.13),transparent_65%)] blur-md"
@@ -252,15 +252,15 @@ export function FoundingTableSection() {
               )}
 
               {/* board header with rolling readout */}
-              <div className="relative flex items-center justify-between gap-4 border-b border-cream/10 pb-4">
-                <p className="shrink-0 font-mono text-[10.5px] font-bold uppercase tracking-[0.2em] text-cream/55 sm:text-[11px]">
+              <div className="relative flex flex-col gap-2 border-b border-cream/10 pb-4 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
+                <p className="shrink-0 font-mono text-[10.5px] font-bold uppercase tracking-[0.2em] text-cream/70 sm:text-[11px]">
                   {FOUNDING.board.label}
-                  <span className="mx-2 text-tangerine" aria-hidden="true">
+                  <span className="mx-2 hidden text-tangerine sm:inline" aria-hidden="true">
                     ·
                   </span>
-                  {FOUNDING.board.status}
+                  <span className="hidden sm:inline">{FOUNDING.board.status}</span>
                 </p>
-                <span className="flex h-4 items-center overflow-hidden">
+                <span className="flex h-4 items-center self-end overflow-hidden sm:self-auto">
                   <AnimatePresence mode="popLayout" initial={false}>
                     <motion.span
                       key={readout}
@@ -271,7 +271,7 @@ export function FoundingTableSection() {
                       className={`whitespace-nowrap text-right font-mono text-[10.5px] font-bold uppercase tracking-[0.16em] sm:text-[11px] ${
                         hovered !== null || claimed !== null
                           ? "text-tangerine"
-                          : "text-cream/40"
+                          : "text-cream/55"
                       }`}
                     >
                       {readout}
@@ -283,7 +283,7 @@ export function FoundingTableSection() {
               {/* 50 table tents */}
               <Stagger
                 gap={0.014}
-                className="relative mt-8 grid grid-cols-5 gap-x-2 gap-y-6 sm:grid-cols-10 sm:gap-x-3 sm:gap-y-7"
+                className="relative mt-6 grid grid-cols-5 gap-x-2 gap-y-5 sm:mt-8 sm:grid-cols-10 sm:gap-x-3 sm:gap-y-7"
               >
                 {Array.from({ length: 50 }, (_, i) => (
                   <StaggerItem key={i + 1} y={14}>
@@ -300,7 +300,7 @@ export function FoundingTableSection() {
                 ))}
               </Stagger>
 
-              <p className="relative mt-8 text-center font-mono text-[10.5px] uppercase tracking-[0.14em] text-cream/45">
+              <p className="relative mt-7 px-2 text-center font-mono text-[11px] uppercase leading-relaxed tracking-[0.14em] text-cream/60">
                 {FOUNDING.board.caption}
               </p>
             </div>
@@ -318,7 +318,7 @@ export function FoundingTableSection() {
                 className="absolute inset-0 translate-x-1 translate-y-1 rounded-[1.4rem] bg-cream/[0.1]"
                 aria-hidden="true"
               />
-              <article className="relative rounded-[1.4rem] bg-cream px-6 py-8 text-ink shadow-[0_56px_100px_-36px_rgba(0,0,0,0.85)] sm:px-9 sm:py-10">
+              <article className="relative rounded-[1.4rem] bg-cream px-6 py-7 text-ink shadow-[0_56px_100px_-36px_rgba(0,0,0,0.85)] sm:px-9 sm:py-9">
                 <p className="text-center font-mono text-[10px] font-bold uppercase tracking-[0.3em] text-ember/75">
                   {FOUNDING.menu.eyebrow}
                 </p>
@@ -329,7 +329,7 @@ export function FoundingTableSection() {
                   {FOUNDING.menu.sub}
                 </p>
                 <div
-                  className="mx-auto mt-5 flex max-w-[210px] items-center gap-3"
+                  className="mx-auto mt-4 flex max-w-[210px] items-center gap-3"
                   aria-hidden="true"
                 >
                   <span className="h-px flex-1 bg-ink/15" />
@@ -337,11 +337,11 @@ export function FoundingTableSection() {
                   <span className="h-px flex-1 bg-ink/15" />
                 </div>
 
-                <ul className="mt-6">
+                <ul className="mt-5">
                   {FOUNDING.perks.map((perk, i) => (
                     <li
                       key={perk.title}
-                      className={i > 0 ? "mt-5 border-t border-dashed border-ink/15 pt-5" : ""}
+                      className={i > 0 ? "mt-4 border-t border-dashed border-ink/15 pt-4" : ""}
                     >
                       <p className="font-mono text-[10px] font-bold uppercase tracking-[0.24em] text-tangerine-deep">
                         {perk.course}
@@ -358,14 +358,14 @@ export function FoundingTableSection() {
                           {perk.tag}
                         </span>
                       </div>
-                      <p className="mt-1.5 text-[13px] leading-relaxed text-ink-soft">
+                      <p className="mt-1.5 text-[13.5px] leading-relaxed text-ink/75">
                         {perk.body}
                       </p>
                     </li>
                   ))}
                 </ul>
 
-                <div className="mt-8 border-t border-ink/10 pt-6">
+                <div className="mt-7 border-t border-ink/10 pt-5">
                   <Button
                     size="lg"
                     className="h-13 min-h-12 w-full bg-tangerine-deep px-7 text-base font-bold text-white shadow-[0_14px_32px_-10px_rgba(224,96,10,0.55)] hover:bg-tangerine-deep/90"

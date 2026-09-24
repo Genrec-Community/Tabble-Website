@@ -35,10 +35,10 @@ const uidOf = (idx: number) => 100 + idx;
 /** Tiny scene label above a device — mono, hairline-flanked. */
 function SceneLabel({ children }: { children: React.ReactNode }) {
   return (
-    <p className="flex items-center gap-2.5 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-cream/40">
-      <span className="h-px w-5 bg-cream/20" aria-hidden="true" />
+    <p className="flex items-center gap-2.5 font-mono text-[10px] font-bold uppercase tracking-[0.22em] text-cream/60">
+      <span className="h-px w-6 bg-cream/25" aria-hidden="true" />
       {children}
-      <span className="h-px w-5 bg-cream/20" aria-hidden="true" />
+      <span className="h-px w-6 bg-cream/25" aria-hidden="true" />
     </p>
   );
 }
@@ -46,7 +46,7 @@ function SceneLabel({ children }: { children: React.ReactNode }) {
 /** Proof-point caption under a device. */
 function SceneCaption({ children }: { children: React.ReactNode }) {
   return (
-    <p className="flex max-w-56 items-start gap-2 text-center font-mono text-[10px] font-bold uppercase leading-relaxed tracking-[0.08em] text-cream/55">
+    <p className="flex max-w-60 items-start gap-2 text-center font-mono text-[10.5px] font-bold uppercase leading-relaxed tracking-[0.08em] text-cream/70">
       <span
         className="mt-1 h-1.5 w-1.5 shrink-0 rounded-full bg-tangerine shadow-[0_0_10px_rgba(249,115,22,0.9)]"
         aria-hidden="true"
@@ -120,6 +120,11 @@ function RelayPhone({ order, phase }: { order: RelayOrder; phase: Phase }) {
       {/* warm pool behind the phone */}
       <div
         className="absolute -inset-9 -z-10 rounded-full bg-tangerine/10 blur-2xl"
+        aria-hidden="true"
+      />
+      {/* socket glow where the wire plugs in (desktop) */}
+      <span
+        className="wire-socket absolute -right-3 top-[52%] hidden -translate-y-1/2 lg:block"
         aria-hidden="true"
       />
       <div className="relative rounded-[2.2rem] border-[9px] border-espresso-2 bg-cream shadow-[0_28px_56px_-20px_rgba(0,0,0,0.7)] ring-1 ring-cream/12">
@@ -320,7 +325,7 @@ export function OrderRelaySection() {
         </div>
 
         {/* the relay scene */}
-        <Reveal delay={0.12} className="relative mx-auto mt-16 max-w-4xl lg:mt-24">
+        <Reveal delay={0.12} className="relative mx-auto mt-16 max-w-5xl lg:mt-24">
           {/* Petpooja radar — faint rings radiating from the trip */}
           <svg
             className="absolute left-1/2 top-1/2 -z-10 h-[880px] w-[880px] -translate-x-1/2 -translate-y-1/2"
@@ -334,8 +339,51 @@ export function OrderRelaySection() {
           </svg>
 
           <div className="relative grid items-center gap-10 lg:grid-cols-[auto_1fr_auto] lg:gap-6 xl:gap-8">
+            {/* the wire — one continuous line from the phone into the
+                kitchen screen. It runs the full width at the row's
+                midline; both devices sit on top of it, so it visibly
+                plugs into the phone on one end and the screen on the
+                other (desktop only — mobile uses the vertical wire
+                further down). */}
+            <div
+              className="pointer-events-none absolute inset-x-0 top-1/2 z-0 hidden h-28 -translate-y-1/2 lg:block"
+              aria-hidden="true"
+            >
+              {/* stem mounting the stopwatch above the wire */}
+              <span className="absolute left-[41%] top-[40px] h-[16px] w-px -translate-x-1/2 bg-gradient-to-b from-tangerine/70 to-tangerine/10" />
+              {/* the line itself */}
+              <div
+                className={`relay-wire absolute inset-x-0 top-1/2 h-[3px] -translate-y-1/2 rounded-full ${flying ? "is-live" : ""}`}
+              />
+              {/* the order, making the trip — it slides under the kitchen
+                  screen's edge and disappears into it */}
+              <AnimatePresence>
+                {flying && (
+                  <motion.div
+                    key={`h-${order.id}`}
+                    className="absolute top-1/2 z-[1]"
+                    initial={{ left: "27%", opacity: 0, x: "-50%", y: "-50%" }}
+                    animate={{ left: "60%", opacity: 1, x: "-50%", y: "-50%" }}
+                    exit={{ opacity: 0, scale: 0.9 }}
+                    transition={{ duration: FLY_MS / 1000, ease: [0.45, 0, 0.2, 1] }}
+                  >
+                    <span className="relay-packet block rounded-full bg-tangerine px-2.5 py-1 font-mono text-[10px] font-bold tracking-wide text-espresso">
+                      {packetLabel(order)}
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              {/* the stopwatch, mounted above the wire */}
+              <div className="absolute left-[41%] top-0 z-[2] -translate-x-1/2">
+                <FlightTimer phase={live.phase} />
+              </div>
+              <p className="absolute left-[41%] top-[72px] -translate-x-1/2 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cream/60">
+                {PROOF.wireCaption}
+              </p>
+            </div>
+
             {/* the guest's phone */}
-            <div className="flex flex-col items-center gap-4">
+            <div className="relative z-[1] flex flex-col items-center gap-4">
               <SceneLabel>
                 {PROOF.phoneLabel} · T{order.table}
               </SceneLabel>
@@ -343,36 +391,9 @@ export function OrderRelaySection() {
               <SceneCaption>{PROOF.callouts[0]}</SceneCaption>
             </div>
 
-            {/* the wire — horizontal on desktop */}
-            <div className="relative hidden h-24 lg:block" aria-hidden="true">
-              <div className="absolute left-1/2 top-0 z-10 -translate-x-1/2">
-                <FlightTimer phase={live.phase} />
-              </div>
-              <div className="absolute inset-x-1 top-1/2 -translate-y-1/2">
-                <div
-                  className={`relay-wire h-[3px] rounded-full ${flying ? "is-live" : ""}`}
-                />
-                <AnimatePresence>
-                  {flying && (
-                    <motion.div
-                      key={`h-${order.id}`}
-                      className="absolute top-1/2"
-                      initial={{ left: "0%", opacity: 0, x: "-50%", y: "-50%" }}
-                      animate={{ left: "100%", opacity: 1, x: "-50%", y: "-50%" }}
-                      exit={{ opacity: 0, scale: 0.9 }}
-                      transition={{ duration: FLY_MS / 1000, ease: [0.45, 0, 0.2, 1] }}
-                    >
-                      <span className="relay-packet block rounded-full bg-tangerine px-2.5 py-1 font-mono text-[10px] font-bold tracking-wide text-espresso">
-                        {packetLabel(order)}
-                      </span>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
-              <p className="absolute bottom-0 left-1/2 -translate-x-1/2 whitespace-nowrap font-mono text-[10px] font-bold uppercase tracking-[0.14em] text-cream/45">
-                {PROOF.wireCaption}
-              </p>
-            </div>
+            {/* breathing room between the devices — the wire lives in the
+                absolute layer above */}
+            <div className="hidden lg:block" aria-hidden="true" />
 
             {/* the wire — vertical on smaller screens */}
             <div
@@ -401,34 +422,44 @@ export function OrderRelaySection() {
                   )}
                 </AnimatePresence>
               </div>
-              <p className="text-center font-mono text-[9.5px] font-bold uppercase tracking-[0.14em] text-cream/45">
+              <p className="text-center font-mono text-[9.5px] font-bold uppercase tracking-[0.14em] text-cream/60">
                 {PROOF.wireCaption}
               </p>
             </div>
 
             {/* the kitchen screen */}
-            <div className="relative flex w-full flex-col items-center gap-4 lg:w-auto">
-              <SceneLabel>{PROOF.kitchenLabel}</SceneLabel>
-              <div className="relative w-full max-w-[400px]">
-                {/* live chip, announcing each landing */}
-                <AnimatePresence>
-                  {placed && (
-                    <motion.div
-                      key={`chip-${order.id}`}
-                      initial={{ opacity: 0, y: 10, scale: 0.92 }}
-                      animate={{ opacity: 1, y: 0, scale: 1 }}
-                      exit={{ opacity: 0, y: -6, scale: 0.95 }}
-                      transition={{ duration: 0.32, ease: EASE }}
-                      className="absolute -top-4 right-2 z-20 flex items-center gap-2 whitespace-nowrap rounded-full border border-tangerine/40 bg-espresso-2/95 px-3.5 py-1.5 font-mono text-[10px] font-bold tracking-[0.05em] text-tangerine shadow-[0_12px_32px_-10px_rgba(249,115,22,0.5)] backdrop-blur-sm"
-                    >
-                      <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
-                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-tangerine opacity-70" />
-                        <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-tangerine" />
-                      </span>
-                      Order #{order.id} · Table {order.table} · just placed
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+            <div className="relative z-[1] flex w-full flex-col items-center gap-4 lg:w-[400px]">
+              {/* scoreboard header — the label and the live arrival chip
+                  share one row, so the chip can never collide with it */}
+              <div className="flex w-full flex-wrap items-center justify-between gap-x-3 gap-y-1.5">
+                <SceneLabel>{PROOF.kitchenLabel}</SceneLabel>
+                <span className="relative ml-auto flex h-7 items-center">
+                  <AnimatePresence>
+                    {placed && (
+                      <motion.span
+                        key={`chip-${order.id}`}
+                        initial={{ opacity: 0, y: 8, scale: 0.94 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: -6, scale: 0.95 }}
+                        transition={{ duration: 0.32, ease: EASE }}
+                        className="flex items-center gap-2 whitespace-nowrap rounded-full border border-tangerine/40 bg-espresso-2/95 px-3.5 py-1.5 font-mono text-[10px] font-bold tracking-[0.05em] text-tangerine shadow-[0_12px_32px_-10px_rgba(249,115,22,0.5)] backdrop-blur-sm"
+                      >
+                        <span className="relative flex h-1.5 w-1.5" aria-hidden="true">
+                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-tangerine opacity-70" />
+                          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-tangerine" />
+                        </span>
+                        Order #{order.id} · just placed
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </span>
+              </div>
+              <div className="relative w-full">
+                {/* socket glow where the wire enters the screen */}
+                <span
+                  className="wire-socket absolute -left-3 top-[calc(50%-6px)] hidden -translate-y-1/2 lg:block"
+                  aria-hidden="true"
+                />
                 {/* ember light pool behind the screen */}
                 <div
                   className="kds-glow absolute -inset-x-16 -inset-y-14 -z-10"
@@ -451,7 +482,7 @@ export function OrderRelaySection() {
               className="hidden h-6 w-px bg-gradient-to-b from-tangerine/70 to-transparent lg:block"
               aria-hidden="true"
             />
-            <p className="flex items-center gap-2.5 text-center font-mono text-[11px] font-bold uppercase leading-relaxed tracking-[0.08em] text-cream/65">
+            <p className="flex items-center gap-2.5 text-center font-mono text-[11px] font-bold uppercase leading-relaxed tracking-[0.08em] text-cream/75">
               <span
                 className="h-1.5 w-1.5 shrink-0 rounded-full bg-tangerine shadow-[0_0_10px_rgba(249,115,22,0.9)]"
                 aria-hidden="true"
@@ -469,7 +500,7 @@ export function OrderRelaySection() {
                 <dd className="font-display text-[2.75rem] font-semibold leading-none text-tangerine [text-shadow:0_0_32px_rgba(249,115,22,0.35)]">
                   {s.value}
                 </dd>
-                <dt className="mt-3 font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-cream/55">
+                <dt className="mt-3 font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-cream/65">
                   {s.label}
                 </dt>
               </div>

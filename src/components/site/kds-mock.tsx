@@ -96,10 +96,10 @@ export function KitchenDisplay({
           {landedUid !== null && list.some((o) => o.uid === landedUid) && (
             <motion.div
               key={`screen-flash-${landedUid}`}
-              initial={{ opacity: reduced ? 0 : 0.22 }}
+              initial={{ opacity: reduced ? 0 : 0.32 }}
               animate={{ opacity: 0 }}
               exit={{ opacity: 0 }}
-              transition={{ duration: 0.55, ease: "easeOut" }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
               className="pointer-events-none absolute inset-0 z-20 rounded-3xl bg-tangerine"
               aria-hidden="true"
             />
@@ -140,7 +140,7 @@ export function KitchenDisplay({
                 animate={{ opacity: 1, y: 0, scale: 1 }}
                 exit={reduced ? undefined : { opacity: 0, scale: 0.95 }}
                 transition={{ duration: 0.45, ease: EASE }}
-                className={`relative rounded-2xl border p-4 ${
+                className={`relative rounded-2xl border p-4 ${dense ? "min-h-[170px]" : ""} ${
                   order.status === "new"
                     ? "border-tangerine/50 bg-espresso-2 shadow-[0_0_0_1px_rgba(249,115,22,0.25),0_12px_32px_-16px_rgba(249,115,22,0.4)]"
                     : "border-cream/10 bg-espresso-2/60"
@@ -180,7 +180,7 @@ export function KitchenDisplay({
                     Note: {order.note}
                   </p>
                 )}
-                <p className="mt-2 text-[10px] uppercase tracking-wide text-cream/45">
+                <p className="mt-2 text-[10px] uppercase tracking-wide text-cream/60">
                   Order #{order.id} · from guest's phone
                 </p>
               </motion.article>

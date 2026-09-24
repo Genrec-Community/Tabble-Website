@@ -235,18 +235,19 @@
 }
 
 /* ─── Founding table tent craft ────────────────────────────────── */
-/* Ambient sweep light drifting across the board */
+/* Ambient sweep light drifting across the board — never dips far
+   enough to look half-drawn */
 @keyframes tentBreath {
   0%,
   100% {
-    opacity: 0.35;
+    opacity: 0.6;
   }
   50% {
     opacity: 1;
   }
 }
 .tent-ambient {
-  animation: tentBreath 2.4s ease-in-out infinite;
+  animation: tentBreath 2.8s ease-in-out infinite;
 }
 
 /* Contact shadow under a tent — stays on the ground while the tent lifts */
@@ -283,10 +284,10 @@
   }
 }
 .relay-wire {
-  opacity: 0.55;
+  opacity: 0.72;
   background-image: repeating-linear-gradient(
     90deg,
-    rgba(249, 115, 22, 0.75) 0 5px,
+    rgba(249, 115, 22, 0.85) 0 5px,
     transparent 5px 13px
   );
 }
@@ -296,10 +297,10 @@
   filter: drop-shadow(0 0 5px rgba(249, 115, 22, 0.4));
 }
 .relay-wire-v {
-  opacity: 0.55;
+  opacity: 0.72;
   background-image: repeating-linear-gradient(
     180deg,
-    rgba(249, 115, 22, 0.75) 0 5px,
+    rgba(249, 115, 22, 0.85) 0 5px,
     transparent 5px 13px
   );
 }
@@ -319,6 +320,30 @@
   box-shadow:
     0 -26px 30px -12px rgba(249, 115, 22, 0.7),
     0 6px 20px rgba(0, 0, 0, 0.5);
+}
+
+/* Soft glow where the wire plugs into each device — blurred on purpose,
+   so it reads as a glowing port without hard geometry to misalign */
+@keyframes socketBreath {
+  0%,
+  100% {
+    opacity: 0.55;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.wire-socket {
+  width: 3.5rem;
+  height: 1.15rem;
+  border-radius: 9999px;
+  background: radial-gradient(
+    closest-side,
+    rgba(249, 115, 22, 0.5),
+    transparent
+  );
+  filter: blur(6px);
+  animation: socketBreath 3.2s ease-in-out infinite;
 }
 
 /* Place-order button breathing glow while it waits to be pressed */
@@ -368,6 +393,7 @@
   .lamp-cone,
   .relay-wire.is-live,
   .relay-wire-v.is-live,
+  .wire-socket,
   .cta-breath {
     animation: none;
   }
