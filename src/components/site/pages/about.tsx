@@ -159,18 +159,22 @@ export function AboutPage() {
             />
           </Reveal>
         </div>
-        <Reveal delay={0.05}>
-          <p className="mt-12 border-t border-cream/10 pt-6 text-center text-sm text-cream/50">
+      </Section>
+
+      {/* light closing strip — meets the rounded footer cleanly */}
+      <section className="bg-cream py-12">
+        <Reveal>
+          <p className="mx-auto max-w-2xl px-4 text-center text-sm text-ink-soft sm:px-6">
             Want to talk first? Write to us at{" "}
             <a
               href={`mailto:${BRAND.email}`}
-              className="font-semibold text-tangerine underline-offset-4 hover:underline"
+              className="font-semibold text-tangerine-deep underline-offset-4 hover:underline"
             >
               {BRAND.email}
             </a>
           </p>
         </Reveal>
-      </Section>
+      </section>
     </>
   );
 }

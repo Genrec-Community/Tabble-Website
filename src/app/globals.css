@@ -179,6 +179,93 @@
   }
 }
 
+/* ─── Paper ticket craft (old-way section) ─────────────────────── */
+/* Torn receipt bottom edge: zigzag notches cut from the bottom */
+.ticket-tear {
+  --notch: 9px;
+  -webkit-mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg)
+      50% / calc(2 * var(--notch)) 100%;
+  mask:
+    conic-gradient(from -45deg at bottom, #0000, #000 1deg 89deg, #0000 90deg)
+      50% / calc(2 * var(--notch)) 100%;
+}
+
+/* Faint receipt-paper ruling */
+.ticket-paper {
+  background:
+    linear-gradient(180deg, #fffdf7 0%, #fbf4e8 100%);
+}
+
+/* ─── KDS stage craft (proof section) ──────────────────────────── */
+/* Ember light pool behind the kitchen screen */
+.kds-glow {
+  background: radial-gradient(
+    ellipse 62% 55% at 50% 42%,
+    rgba(249, 115, 22, 0.22),
+    rgba(249, 115, 22, 0.07) 55%,
+    transparent 75%
+  );
+}
+
+/* Soft reflection under the screen */
+.kds-reflection {
+  background: radial-gradient(
+    ellipse 58% 100% at 50% 0%,
+    rgba(249, 115, 22, 0.16),
+    rgba(249, 115, 22, 0.04) 55%,
+    transparent 78%
+  );
+}
+
+/* Live chip pulse, synced to the 3.8s order rotation */
+@keyframes livePing {
+  0% {
+    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.55);
+  }
+  18% {
+    box-shadow: 0 0 0 12px rgba(249, 115, 22, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 12px rgba(249, 115, 22, 0);
+  }
+}
+.live-ping {
+  animation: livePing 3.8s cubic-bezier(0.2, 0, 0, 1) infinite;
+}
+
+/* ─── Founding table tent craft ────────────────────────────────── */
+.tent {
+  transition:
+    transform 0.22s cubic-bezier(0.2, 0, 0, 1),
+    filter 0.22s cubic-bezier(0.2, 0, 0, 1);
+}
+.tent:hover,
+.tent:focus-visible {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 8px 16px rgba(249, 115, 22, 0.45));
+}
+.tent svg path {
+  transition: fill 0.22s ease, stroke 0.22s ease;
+}
+.tent svg text {
+  transition: fill 0.22s ease;
+}
+
+/* Ambient sweep light drifting across the board */
+@keyframes tentBreath {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+.tent-ambient {
+  animation: tentBreath 2.4s ease-in-out infinite;
+}
+
 .rise {
   opacity: 0;
   animation: riseIn 0.6s cubic-bezier(0.2, 0, 0, 1) forwards;
@@ -203,6 +290,14 @@
   .rise {
     animation: none;
     opacity: 1;
+    transform: none;
+  }
+  .live-ping,
+  .tent-ambient {
+    animation: none;
+  }
+  .tent:hover,
+  .tent:focus-visible {
     transform: none;
   }
   html {

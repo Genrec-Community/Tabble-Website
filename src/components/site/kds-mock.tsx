@@ -71,9 +71,9 @@ export function KitchenDisplay() {
       <div className="flex items-center justify-between border-b border-cream/10 px-5 py-3.5">
         <div className="flex items-center gap-3">
           <span className="flex gap-1.5" aria-hidden="true">
-            <span className="h-2.5 w-2.5 rounded-full bg-cream/20" />
-            <span className="h-2.5 w-2.5 rounded-full bg-cream/20" />
-            <span className="h-2.5 w-2.5 rounded-full bg-cream/20" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#ff5f57]/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#febc2e]/70" />
+            <span className="h-2.5 w-2.5 rounded-full bg-[#28c840]/70" />
           </span>
           <p className="text-sm font-semibold text-cream">Tabble Kitchen · Live orders</p>
         </div>
@@ -128,7 +128,7 @@ export function KitchenDisplay() {
                     Note: {order.note}
                   </p>
                 )}
-                <p className="mt-2 text-[10px] uppercase tracking-wide text-cream/60">
+                <p className="mt-2 text-[10px] uppercase tracking-wide text-cream/45">
                   Order #{order.id} · from guest's phone
                 </p>
               </motion.article>

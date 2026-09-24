@@ -53,16 +53,42 @@ export function Kicker({
   );
 }
 
+/** Petpooja-style section pill — light tint, uppercase mono, accent text. */
+export function PillBadge({
+  children,
+  tone = "light",
+}: {
+  children: React.ReactNode;
+  tone?: "light" | "dark";
+}) {
+  return (
+    <p
+      className={`inline-flex items-center gap-2 rounded-full px-4 py-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.16em] ${
+        tone === "light"
+          ? "bg-tangerine-soft text-ember"
+          : "border border-tangerine/30 bg-tangerine/10 text-tangerine"
+      }`}
+    >
+      <span className="h-1.5 w-1.5 rounded-full bg-current" aria-hidden="true" />
+      {children}
+    </p>
+  );
+}
+
 export function H2({
   children,
   className = "",
+  tone = "light",
 }: {
   children: React.ReactNode;
   className?: string;
+  tone?: "light" | "dark";
 }) {
   return (
     <h2
-      className={`font-display text-3xl font-semibold leading-[1.12] tracking-tight text-ink text-balance sm:text-4xl lg:text-[2.75rem] ${className}`}
+      className={`font-display text-3xl font-semibold leading-[1.12] tracking-tight text-balance sm:text-4xl lg:text-[2.75rem] ${
+        tone === "light" ? "text-ink" : "text-cream"
+      } ${className}`}
     >
       {children}
     </h2>

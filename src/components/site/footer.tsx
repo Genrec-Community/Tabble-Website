@@ -35,7 +35,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto bg-espresso text-cream/90">
+    <footer className="relative z-10 mt-auto rounded-t-[2.5rem] bg-espresso text-cream/90 shadow-[0_-18px_48px_-28px_rgba(34,17,7,0.45)]">
       <div className="mx-auto max-w-7xl px-4 py-14 sm:px-6 lg:px-8 lg:py-16">
         <div className="grid gap-10 md:grid-cols-[1.4fr_repeat(3,1fr)]">
           <div className="max-w-sm">

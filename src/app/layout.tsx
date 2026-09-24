@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Fraunces, Plus_Jakarta_Sans } from "next/font/google";
+import { Fraunces, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
@@ -12,6 +12,13 @@ const fraunces = Fraunces({
 const jakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
   variable: "--font-body",
+  display: "swap",
+});
+
+const spaceMono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -52,7 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fraunces.variable} ${jakarta.variable} antialiased bg-background text-foreground`}
+        className={`${fraunces.variable} ${jakarta.variable} ${spaceMono.variable} antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />

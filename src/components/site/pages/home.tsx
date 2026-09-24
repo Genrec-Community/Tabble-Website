@@ -7,13 +7,14 @@ import {
   PROBLEMS,
   STEPS,
   FEATURES,
-  FOUNDING,
   FAQS,
 } from "@/lib/site/content";
 import { HeroPhone, DEMO_MENU } from "../phone-demo";
-import { KitchenDisplay } from "../kds-mock";
+import { OldWaySection } from "../sections/old-way";
+import { KdsStageSection } from "../sections/kds-stage";
+import { FoundingTableSection } from "../sections/founding-table";
 import { Reveal, Stagger, StaggerItem } from "../reveal";
-import { Section, Kicker, H2, CTAButtons, ImgSlot } from "../ui-bits";
+import { Section, H2, CTAButtons, PillBadge } from "../ui-bits";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -32,6 +33,8 @@ import {
   ArrowRight,
   BadgeCheck,
   Sparkles,
+  QrCode,
+  ClipboardList,
 } from "lucide-react";
 import { IMAGES } from "@/lib/site/images";
 
@@ -43,6 +46,8 @@ const FEATURE_ICONS = {
   smartphone: Smartphone,
   users: Users,
 } as const;
+
+const STEP_ICONS = [QrCode, ClipboardList, ChefHat, Wallet] as const;
 
 function HeroSection() {
   return (
@@ -123,157 +128,104 @@ function HeroSection() {
   );
 }
 
-function ProblemSection() {
-  return (
-    <Section tone="white" id="problem">
-      <div className="grid gap-10 lg:grid-cols-[0.95fr_1.05fr] lg:gap-16">
-        <div>
-          <Reveal>
-            <Kicker>{PROBLEMS.kicker}</Kicker>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <H2 className="mt-4">{PROBLEMS.headline}</H2>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <p className="mt-5 max-w-lg leading-relaxed text-ink-soft">
-              {PROBLEMS.intro}
-            </p>
-          </Reveal>
-        </div>
-        <Stagger className="space-y-4">
-          {PROBLEMS.pains.map((p, i) => (
-            <StaggerItem key={p.title}>
-              <article className="flex gap-4 rounded-2xl border border-border bg-cream p-5 sm:p-6">
-                <span className="font-display text-2xl font-semibold text-tangerine/70">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                <div>
-                  <h3 className="font-semibold text-ink">{p.title}</h3>
-                  <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
-                    {p.body}
-                  </p>
-                </div>
-              </article>
-            </StaggerItem>
-          ))}
-        </Stagger>
-      </div>
-    </Section>
-  );
-}
-
 function StepsSection() {
-  const { navigate } = useRouter();
   return (
-    <Section tone="cream" id="how-it-works">
-      <div className="grid items-start gap-12 lg:grid-cols-[1fr_0.9fr] lg:gap-16">
-        <div>
-          <Reveal>
-            <Kicker>How it works</Kicker>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <H2 className="mt-4">
-              From scan to kitchen in one breath.
-            </H2>
-          </Reveal>
-          <ol className="mt-10 space-y-0">
-            {STEPS.map((step, i) => (
-              <Reveal key={step.n} delay={i * 0.06}>
-                <li className="relative flex gap-5 pb-8 last:pb-0">
-                  {i < STEPS.length - 1 && (
-                    <span
-                      className="absolute left-[22px] top-12 h-[calc(100%-3rem)] w-px bg-border"
-                      aria-hidden="true"
-                    />
-                  )}
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-tangerine/40 bg-tangerine-soft font-display text-sm font-bold text-ember">
-                    {step.n}
-                  </span>
-                  <div className="pt-1">
-                    <h3 className="font-display text-xl font-semibold text-ink">
-                      {step.title}
-                    </h3>
-                    <p className="mt-2 leading-relaxed text-ink-soft">{step.body}</p>
-                    <p className="mt-2 text-sm font-medium text-ember">
-                      {step.detail}
-                    </p>
-                  </div>
-                </li>
-              </Reveal>
-            ))}
-          </ol>
-          <Reveal delay={0.2}>
-            <div className="mt-10">
-              <CTAButtons
-                primaryLabel="Request early access"
-                secondaryLabel="Full walkthrough"
-                secondaryRoute="how-it-works"
-              />
-            </div>
-          </Reveal>
-        </div>
-        <div className="space-y-6 lg:sticky lg:top-28">
-          <Reveal delay={0.1}>
-            <ImgSlot
-              src={IMAGES.qrScan}
-              alt="A guest scanning the table QR code with a phone"
-              ratio="aspect-[4/5]"
-              caption="No app. No sign-up. Just scan."
-            />
-          </Reveal>
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-function ProofSection() {
-  return (
-    <Section tone="deep" id="proof">
-      <div className="grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-        <div>
-          <Reveal>
-            <Kicker>Behind the counter</Kicker>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <H2 className="mt-4">
-              Every order lands the moment it's placed.
-            </H2>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <p className="mt-5 leading-relaxed text-ink-soft">
-              This is the screen your kitchen runs on. Table numbers, items,
-              guest-typed notes — no waiter re-entry, no shouted modifications,
-              no printer between the guest and the chef. Orders arrive in the
-              order they were placed, and the display keeps working through
-              the rush.
-            </p>
-          </Reveal>
-          <Reveal delay={0.24}>
-            <ul className="mt-6 space-y-3">
-              {[
-                "Guest-typed notes reach the kitchen unedited",
-                "New orders highlight themselves — nothing gets missed",
-                "Runs on any tablet or browser you already own",
-              ].map((point) => (
-                <li key={point} className="flex items-start gap-3 text-sm text-ink">
-                  <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-leaf/15">
-                    <Check className="h-3 w-3 text-leaf" aria-hidden="true" />
-                  </span>
-                  {point}
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
-        <Reveal delay={0.12} className="relative">
-          <div
-            className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-tangerine/10 blur-2xl"
-            aria-hidden="true"
-          />
-          <KitchenDisplay />
+    <Section
+      tone="cream"
+      id="how-it-works"
+      className="relative z-10 -mt-6 rounded-t-[2.5rem] shadow-[0_-18px_48px_-28px_rgba(34,17,7,0.45)]"
+    >
+      {/* centered header — Petpooja pattern: pill → headline → sub */}
+      <div className="mx-auto max-w-2xl text-center">
+        <Reveal>
+          <PillBadge>How it works</PillBadge>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <H2 className="mt-5">From scan to kitchen in one breath.</H2>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <p className="mt-4 leading-relaxed text-ink-soft">
+            No app for your guests, no new hardware for you, no training night
+            for staff. Four steps your guests already know how to do.
+          </p>
         </Reveal>
       </div>
+
+      {/* the dashed thread threading through the number chips (desktop) */}
+      <div className="relative mt-14">
+        <span
+          className="absolute inset-x-[9%] top-[3.25rem] hidden border-t-2 border-dashed border-tangerine/35 lg:block"
+          aria-hidden="true"
+        />
+        <Stagger
+          gap={0.08}
+          className="relative grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
+        >
+          {STEPS.map((step, i) => {
+            const Icon = STEP_ICONS[i % STEP_ICONS.length];
+            const tinted = i % 2 === 1;
+            return (
+              <StaggerItem key={step.n} className="h-full">
+                <article
+                  className={`flex h-full flex-col rounded-[1.75rem] p-6 shadow-[0_2px_20px_-10px_rgba(43,26,16,0.10)] ${
+                    tinted ? "bg-tangerine-soft/50" : "bg-white"
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <span
+                      className={`flex h-12 w-12 items-center justify-center rounded-full border-2 border-dashed border-tangerine/45 font-mono text-sm font-bold text-ember ${
+                        tinted ? "bg-white" : "bg-cream"
+                      }`}
+                    >
+                      {step.n}
+                    </span>
+                    <span
+                      className={`flex h-10 w-10 items-center justify-center rounded-full ${
+                        tinted
+                          ? "bg-white text-ember shadow-sm"
+                          : "bg-tangerine-soft text-ember"
+                      }`}
+                    >
+                      <Icon className="h-5 w-5" aria-hidden="true" />
+                    </span>
+                  </div>
+                  <h3 className="mt-5 font-display text-xl font-semibold text-ink">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">
+                    {step.body}
+                  </p>
+                  {i === 0 && (
+                    <div className="mt-4 flex-1 overflow-hidden rounded-2xl border border-border/70">
+                      <img
+                        src={IMAGES.qrScan ?? ""}
+                        alt="A guest scanning the table QR code with her phone"
+                        loading="lazy"
+                        decoding="async"
+                        className="aspect-[16/10] w-full object-cover"
+                      />
+                    </div>
+                  )}
+                  <p className="mt-4 border-t border-dashed border-ember/20 pt-3 font-mono text-[10.5px] font-bold uppercase leading-relaxed tracking-[0.06em] text-ember/90">
+                    {step.detail}
+                  </p>
+                </article>
+              </StaggerItem>
+            );
+          })}
+        </Stagger>
+      </div>
+
+      <Reveal delay={0.1}>
+        <div className="mt-12 flex justify-center">
+          <CTAButtons
+            primaryLabel="Request early access"
+            secondaryLabel="Full walkthrough"
+            secondaryRoute="how-it-works"
+            align="center"
+          />
+        </div>
+      </Reveal>
     </Section>
   );
 }
@@ -281,20 +233,31 @@ function ProofSection() {
 function FeaturesSection() {
   const { navigate } = useRouter();
   return (
-    <Section tone="white" id="features">
-      <div className="max-w-2xl">
+    <Section
+      tone="white"
+      id="features"
+      className="relative z-10 -mt-6 rounded-t-[2.5rem] shadow-[0_-18px_48px_-28px_rgba(34,17,7,0.45)]"
+    >
+      {/* centered header — Petpooja pattern */}
+      <div className="mx-auto max-w-2xl text-center">
         <Reveal>
-          <Kicker>{FEATURES.kicker}</Kicker>
+          <PillBadge>{FEATURES.kicker}</PillBadge>
         </Reveal>
         <Reveal delay={0.08}>
-          <H2 className="mt-4">{FEATURES.headline}</H2>
+          <H2 className="mt-5">{FEATURES.headline}</H2>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <p className="mt-4 leading-relaxed text-ink-soft">
+            Menu, orders, kitchen, payments and insights — one calm system that
+            runs itself while you run the floor.
+          </p>
         </Reveal>
       </div>
 
       {/* hero feature — visual weight tier 1 */}
       <Reveal delay={0.1}>
-        <article className="mt-12 grid overflow-hidden rounded-3xl border border-border bg-cream lg:grid-cols-2">
-          <div className="p-7 sm:p-10">
+        <article className="mt-14 grid overflow-hidden rounded-[2rem] bg-cream shadow-[0_2px_24px_-12px_rgba(43,26,16,0.12)] lg:grid-cols-2">
+          <div className="p-8 sm:p-12">
             <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-tangerine-soft text-ember">
               <Sparkles className="h-6 w-6" aria-hidden="true" />
             </span>
@@ -367,14 +330,29 @@ function FeaturesSection() {
         </article>
       </Reveal>
 
-      {/* compact grid — tier 2 */}
-      <Stagger className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {FEATURES.items.map((f) => {
+      {/* checkerboard masonry — alternating tints, middle column staggered */}
+      <Stagger
+        gap={0.07}
+        className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3"
+      >
+        {FEATURES.items.map((f, i) => {
           const Icon = FEATURE_ICONS[f.icon as keyof typeof FEATURE_ICONS];
+          const tinted = i % 2 === 1;
+          const middleCol = i % 3 === 1;
           return (
-            <StaggerItem key={f.title}>
-              <article className="group h-full rounded-2xl border border-border bg-cream p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_20px_40px_-24px_rgba(43,26,16,0.25)]">
-                <span className="inline-flex h-10 w-10 items-center justify-center rounded-xl bg-tangerine-soft text-ember transition-colors group-hover:bg-tangerine group-hover:text-white">
+            <StaggerItem key={f.title} className={`h-full ${middleCol ? "lg:mt-8" : ""}`}>
+              <article
+                className={`group h-full rounded-[1.75rem] p-6 transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_20px_40px_-24px_rgba(43,26,16,0.25)] ${
+                  tinted ? "bg-tangerine-soft/50" : "bg-cream"
+                }`}
+              >
+                <span
+                  className={`inline-flex h-11 w-11 items-center justify-center rounded-full transition-colors group-hover:bg-tangerine group-hover:text-white ${
+                    tinted
+                      ? "bg-white text-ember shadow-sm"
+                      : "bg-tangerine-soft text-ember"
+                  }`}
+                >
                   <Icon className="h-5 w-5" aria-hidden="true" />
                 </span>
                 <h3 className="mt-4 font-semibold text-ink">{f.title}</h3>
@@ -388,101 +366,60 @@ function FeaturesSection() {
   );
 }
 
-function FoundingSection() {
-  const { navigate } = useRouter();
-  return (
-    <section
-      id="founding"
-      data-section="founding"
-      className="relative overflow-hidden bg-espresso text-cream"
-    >
-      <div
-        className="absolute inset-0 warm-glow opacity-60"
-        aria-hidden="true"
-      />
-      <div className="relative mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-20 lg:px-8 lg:py-24">
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <div className="lg:sticky lg:top-28 lg:self-start">
-            <Reveal>
-              <Kicker tone="dark">{FOUNDING.kicker}</Kicker>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h2 className="mt-4 font-display text-3xl font-semibold leading-[1.12] tracking-tight text-cream text-balance sm:text-4xl lg:text-[2.75rem]">
-                {FOUNDING.headline}
-              </h2>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="mt-5 leading-relaxed text-cream/75">{FOUNDING.body}</p>
-            </Reveal>
-            <Reveal delay={0.24}>
-              <div className="mt-8">
-                <CTAButtons primaryLabel={FOUNDING.cta} dark />
-              </div>
-            </Reveal>
-          </div>
-          <Stagger className="grid gap-4 sm:grid-cols-2">
-            {FOUNDING.perks.map((perk, i) => (
-              <StaggerItem key={perk.title}>
-                <article className="h-full rounded-2xl border border-cream/15 bg-espresso-2/70 p-6 backdrop-blur-sm">
-                  <span className="font-display text-lg font-semibold text-tangerine">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  <h3 className="mt-3 font-semibold text-cream">{perk.title}</h3>
-                  <p className="mt-2 text-sm leading-relaxed text-cream/70">
-                    {perk.body}
-                  </p>
-                </article>
-              </StaggerItem>
-            ))}
-          </Stagger>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function FaqTeaserSection() {
   const { navigate } = useRouter();
   return (
-    <Section tone="white" id="faq">
-      <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
-        <div className="lg:sticky lg:top-28 lg:self-start">
-          <Reveal>
-            <Kicker>Questions</Kicker>
-          </Reveal>
-          <Reveal delay={0.08}>
-            <H2 className="mt-4">Asked by every restaurant owner.</H2>
-          </Reveal>
-          <Reveal delay={0.16}>
-            <Button
-              variant="ghost"
-              className="mt-6 h-12 px-5 text-sm font-bold text-tangerine-deep hover:bg-tangerine-soft"
-              onClick={() => navigate("faq")}
-            >
-              All questions, answered
-              <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
-            </Button>
-          </Reveal>
-        </div>
-        <Reveal delay={0.1}>
-          <Accordion type="single" collapsible className="w-full">
-            {FAQS.slice(0, 4).map((faq, i) => (
-              <AccordionItem
-                key={faq.q}
-                value={`faq-${i}`}
-                className="border-border"
-              >
-                <AccordionTrigger className="py-5 text-left font-display text-lg font-semibold text-ink hover:no-underline hover:text-tangerine-deep">
-                  {faq.q}
-                </AccordionTrigger>
-                <AccordionContent className="pb-5 leading-relaxed text-ink-soft">
-                  {faq.a}
-                </AccordionContent>
-              </AccordionItem>
-            ))}
-          </Accordion>
+    <Section
+      tone="white"
+      id="faq"
+      className="relative z-10 -mt-6 rounded-t-[2.5rem] shadow-[0_-18px_48px_-28px_rgba(34,17,7,0.45)]"
+    >
+      {/* centered header — Petpooja pattern */}
+      <div className="mx-auto max-w-2xl text-center">
+        <Reveal>
+          <PillBadge>Questions</PillBadge>
+        </Reveal>
+        <Reveal delay={0.08}>
+          <H2 className="mt-5">Asked by every restaurant owner.</H2>
+        </Reveal>
+        <Reveal delay={0.16}>
+          <p className="mt-4 leading-relaxed text-ink-soft">
+            The honest answers we give on every demo call — before you even
+            have to ask.
+          </p>
         </Reveal>
       </div>
+
+      <Reveal delay={0.1} className="mx-auto mt-10 max-w-3xl">
+        <Accordion type="single" collapsible className="w-full space-y-3">
+          {FAQS.slice(0, 4).map((faq, i) => (
+            <AccordionItem
+              key={faq.q}
+              value={`faq-${i}`}
+              className={`rounded-[1.25rem] border-0 px-6 shadow-[0_2px_16px_-10px_rgba(43,26,16,0.08)] transition-colors ${
+                i % 2 === 1 ? "bg-tangerine-soft/40" : "bg-cream"
+              }`}
+            >
+              <AccordionTrigger className="py-5 text-left font-display text-lg font-semibold text-ink hover:no-underline hover:text-tangerine-deep">
+                {faq.q}
+              </AccordionTrigger>
+              <AccordionContent className="pb-5 leading-relaxed text-ink-soft">
+                {faq.a}
+              </AccordionContent>
+            </AccordionItem>
+          ))}
+        </Accordion>
+        <div className="mt-8 flex justify-center">
+          <Button
+            variant="ghost"
+            className="h-12 px-5 text-sm font-bold text-tangerine-deep hover:bg-tangerine-soft"
+            onClick={() => navigate("faq")}
+          >
+            All questions, answered
+            <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+          </Button>
+        </div>
+      </Reveal>
     </Section>
   );
 }
@@ -494,7 +431,18 @@ function FinalCtaSection() {
       data-section="final-cta"
       className="relative overflow-hidden bg-cream warm-glow warm-glow-b"
     >
-      <div className="mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 sm:py-28">
+      {/* Petpooja radar — concentric dashed circles radiating from the CTA */}
+      <svg
+        className="absolute left-1/2 top-1/2 h-[880px] w-[880px] -translate-x-1/2 -translate-y-1/2"
+        viewBox="0 0 880 880"
+        fill="none"
+        aria-hidden="true"
+      >
+        <circle cx="440" cy="440" r="190" stroke="#f97316" strokeOpacity="0.3" strokeWidth="1.5" strokeDasharray="3 12" />
+        <circle cx="440" cy="440" r="310" stroke="#f97316" strokeOpacity="0.22" strokeWidth="1.5" strokeDasharray="3 12" />
+        <circle cx="440" cy="440" r="430" stroke="#f97316" strokeOpacity="0.15" strokeWidth="1.5" strokeDasharray="3 12" />
+      </svg>
+      <div className="relative mx-auto max-w-3xl px-4 py-20 text-center sm:px-6 sm:py-28">
         <Reveal>
           <h2 className="font-display text-3xl font-semibold leading-[1.12] tracking-tight text-ink text-balance sm:text-5xl">
             Your tables are ready to work the rush.
@@ -525,11 +473,11 @@ export function HomePage() {
   return (
     <>
       <HeroSection />
-      <ProblemSection />
+      <OldWaySection />
       <StepsSection />
-      <ProofSection />
+      <KdsStageSection />
       <FeaturesSection />
-      <FoundingSection />
+      <FoundingTableSection />
       <FaqTeaserSection />
       <FinalCtaSection />
     </>

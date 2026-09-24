@@ -30,15 +30,18 @@ export const PROBLEMS = {
   pains: [
     {
       title: "Guests wait to order",
-      body: "A party sits down, decides in two minutes, then waits for a free waiter to notice them. Appetite cools, orders shrink, reviews mention 'slow service' — even when the food was fast.",
+      body: "A party sits down, decides in two minutes, then waits for a free waiter to notice them. Appetite cools, orders shrink, reviews mention slow service.",
+      ticket: { table: "06", time: "21:42", stamp: "WAITING", stampRot: "-7deg" },
     },
     {
       title: "Orders get lost in translation",
-      body: "Scribbled pads, shouted modifications, tickets printed after the waiter walks past the POS. Every hand-off between guest, waiter and kitchen is a place where the order can bend.",
+      body: "Scribbled pads, shouted modifications, tickets printed after the waiter walks past the POS. Every hand-off is a place the order can bend.",
+      ticket: { table: "11", time: "21:47", stamp: "MISSED", stampRot: "4deg" },
     },
     {
       title: "The bill is where evenings go to die",
-      body: "Guests finish dessert, then wait to flag someone down, wait for the machine, wait for change. Your busiest tables sit occupied — not eating, not paying, not turning.",
+      body: "Guests finish dessert, then wait to flag someone down, wait for the machine, wait for change. Your busiest tables sit occupied — not turning.",
+      ticket: { table: "02", time: "22:15", stamp: "UNPAID", stampRot: "-5deg" },
     },
   ],
   statLine: [
@@ -126,6 +129,13 @@ export const FOUNDING = {
   kicker: "Founding cohort",
   headline: "Be one of the first 50 restaurants on Tabble.",
   body: "We're onboarding restaurants personally, one by one, and building the product with the people who use it. Founding restaurants get a deal that will never repeat:",
+  board: {
+    label: "Founding table",
+    status: "50 seats · one time only",
+    hover: "Table №",
+    hoverSuffix: "— yours to claim",
+    caption: "One seat per restaurant. When the fiftieth seat is claimed, founding pricing closes for good.",
+  },
   perks: [
     {
       title: "Founding pricing, locked for life",
@@ -145,6 +155,23 @@ export const FOUNDING = {
     },
   ],
   cta: "Request early access",
+};
+
+export const PROOF = {
+  kicker: "Behind the pass",
+  headline: "Every order lands the moment it's placed.",
+  sub: "This is the screen your kitchen runs on. Table numbers, items, guest-typed notes — no waiter re-entry, no shouted modifications, no printer between the guest and the chef.",
+  liveChip: "Order #1042 · Table 6 · just placed",
+  callouts: [
+    "Guest-typed notes reach the chef unedited",
+    "New orders light up the instant they land",
+    "Runs on any tablet or browser you already own",
+  ],
+  stats: [
+    { value: "0s", label: "from guest tap to kitchen screen" },
+    { value: "0", label: "orders re-typed by your staff" },
+    { value: "0", label: "printers, ink and paper rolls" },
+  ],
 };
 
 export const FAQS = [
