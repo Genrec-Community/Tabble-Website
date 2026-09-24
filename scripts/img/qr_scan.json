@@ -1,0 +1,37 @@
+{
+  "success": true,
+  "query": "person scanning QR code menu with smartphone at restaurant table",
+  "count": 4,
+  "ranked": false,
+  "captioned_count": 0,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/95fc03e7062f.jpeg",
+      "caption": "",
+      "source": "SproutQR",
+      "original_width": "1280px",
+      "original_height": "1024px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/27c233910449.jpeg",
+      "caption": "",
+      "source": "Eats365",
+      "original_width": "7999px",
+      "original_height": "5322px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/bd0cb0df8763.png",
+      "caption": "",
+      "source": "Treesoft.io",
+      "original_width": "1826px",
+      "original_height": "1238px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/ecc7d833ee21.png",
+      "caption": "",
+      "source": "CodeCanyon",
+      "original_width": "1280px",
+      "original_height": "720px"
+    }
+  ]
+}

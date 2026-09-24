@@ -1,0 +1,37 @@
+{
+  "success": true,
+  "query": "colorful indian thali food platter with curries and naan close up",
+  "count": 4,
+  "ranked": false,
+  "captioned_count": 0,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/772d0b410896.jpg",
+      "caption": "",
+      "source": "Alamy",
+      "original_width": "866px",
+      "original_height": "1390px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/2363507167ee.jpg",
+      "caption": "",
+      "source": "Alamy",
+      "original_width": "1300px",
+      "original_height": "957px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/3ad76cade37b.jpeg",
+      "caption": "",
+      "source": "Eater LA",
+      "original_width": "965px",
+      "original_height": "969px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/82a011c13f9a.jpeg",
+      "caption": "",
+      "source": "Pexels",
+      "original_width": "1500px",
+      "original_height": "1000px"
+    }
+  ]
+}

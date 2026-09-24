@@ -1,0 +1,30 @@
+{
+  "success": true,
+  "query": "grilled paneer tikka skewers on plate",
+  "count": 3,
+  "ranked": false,
+  "captioned_count": 0,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/6154360a0a18.jpg",
+      "caption": "",
+      "source": "Krumpli",
+      "original_width": "900px",
+      "original_height": "1200px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/87b933bc36ac.jpg",
+      "caption": "",
+      "source": "Moon Rice",
+      "original_width": "1200px",
+      "original_height": "1200px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/658280179005.jpg",
+      "caption": "",
+      "source": "Food Trails",
+      "original_width": "1600px",
+      "original_height": "1067px"
+    }
+  ]
+}

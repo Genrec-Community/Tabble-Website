@@ -1,0 +1,33 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model WaitlistEntry {
+  id             String   @id @default(cuid())
+  email          String
+  name           String?
+  source         String   @default("signup") // "signup" | "request"
+  restaurantName String?
+  phone          String?
+  city           String?
+  outlets        String?
+  plan           String?
+  createdAt      DateTime @default(now())
+
+  @@index([source])
+  @@index([createdAt])
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  topic     String   @default("general")
+  message   String
+  createdAt DateTime @default(now())
+}

@@ -1,0 +1,37 @@
+{
+  "success": true,
+  "query": "smiling restaurant owner standing at the counter of his small restaurant",
+  "count": 4,
+  "ranked": false,
+  "captioned_count": 0,
+  "results": [
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/eb06912dddb2.jpg",
+      "caption": "",
+      "source": "Alamy",
+      "original_width": "1300px",
+      "original_height": "956px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/975aa2609aa6.jpg",
+      "caption": "",
+      "source": "YouWorkForThem",
+      "original_width": "1184px",
+      "original_height": "790px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/9c9b39f557e5.jpg",
+      "caption": "",
+      "source": "WTTW",
+      "original_width": "1920px",
+      "original_height": "1080px"
+    },
+    {
+      "original_url": "https://z-cdn.chatglm.cn/image-search-mcp/images-ppt/1a18b19c5107.jpg",
+      "caption": "",
+      "source": "Bon Appetit",
+      "original_width": "2560px",
+      "original_height": "1440px"
+    }
+  ]
+}
