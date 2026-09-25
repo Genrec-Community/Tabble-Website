@@ -41,8 +41,8 @@ export function Footer() {
           <div className="max-w-sm">
             <FooterLogo />
             <p className="mt-4 text-sm leading-relaxed text-cream/70">
-              {BRAND.tagline} QR dine-in ordering and the restaurant OS
-              behind it — built with restaurants, for the Friday-night rush.
+              {BRAND.tagline} Built with restaurants, for the Friday-night
+              rush.
             </p>
             <a
               href={`mailto:${BRAND.email}`}

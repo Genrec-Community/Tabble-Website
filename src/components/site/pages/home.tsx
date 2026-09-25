@@ -2,26 +2,16 @@
 
 import React from "react";
 import { useRouter } from "@/lib/site/router";
-import {
-  HERO,
-  PROBLEMS,
-  STEPS,
-  FEATURES,
-  FAQS,
-} from "@/lib/site/content";
+import { HERO, PROBLEMS, FEATURES } from "@/lib/site/content";
 import { HeroPhone, DEMO_MENU } from "../phone-demo";
 import { OldWaySection } from "../sections/old-way";
 import { OrderRelaySection } from "../sections/order-relay";
 import { FoundingTableSection } from "../sections/founding-table";
+import { StepsBentoSection } from "../sections/steps-bento";
+import { FaqMarqueeSection } from "../sections/faq-marquee";
 import { Reveal, Stagger, StaggerItem } from "../reveal";
 import { Section, H2, CTAButtons, PillBadge } from "../ui-bits";
 import { Button } from "@/components/ui/button";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
 import {
   ChefHat,
   Wallet,
@@ -33,10 +23,7 @@ import {
   ArrowRight,
   BadgeCheck,
   Sparkles,
-  QrCode,
-  ClipboardList,
 } from "lucide-react";
-import { IMAGES } from "@/lib/site/images";
 
 const FEATURE_ICONS = {
   chef: ChefHat,
@@ -46,8 +33,6 @@ const FEATURE_ICONS = {
   smartphone: Smartphone,
   users: Users,
 } as const;
-
-const STEP_ICONS = [QrCode, ClipboardList, ChefHat, Wallet] as const;
 
 function HeroSection() {
   return (
@@ -125,108 +110,6 @@ function HeroSection() {
         </dl>
       </div>
     </section>
-  );
-}
-
-function StepsSection() {
-  return (
-    <Section
-      tone="cream"
-      id="how-it-works"
-      className="relative z-10 -mt-6 rounded-t-[2.5rem] shadow-[0_-18px_48px_-28px_rgba(34,17,7,0.45)]"
-    >
-      {/* centered header — Petpooja pattern: pill → headline → sub */}
-      <div className="mx-auto max-w-2xl text-center">
-        <Reveal>
-          <PillBadge>How it works</PillBadge>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <H2 className="mt-5">From scan to kitchen in one breath.</H2>
-        </Reveal>
-        <Reveal delay={0.16}>
-          <p className="mt-4 leading-relaxed text-ink-soft">
-            No app for your guests, no new hardware for you, no training night
-            for staff. Four steps your guests already know how to do.
-          </p>
-        </Reveal>
-      </div>
-
-      {/* the dashed thread threading through the number chips (desktop) */}
-      <div className="relative mt-14">
-        <span
-          className="absolute inset-x-[9%] top-[3.25rem] hidden border-t-2 border-dashed border-tangerine/35 lg:block"
-          aria-hidden="true"
-        />
-        <Stagger
-          gap={0.08}
-          className="relative grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-        >
-          {STEPS.map((step, i) => {
-            const Icon = STEP_ICONS[i % STEP_ICONS.length];
-            const tinted = i % 2 === 1;
-            return (
-              <StaggerItem key={step.n} className="h-full">
-                <article
-                  className={`flex h-full flex-col rounded-[1.75rem] p-6 shadow-[0_2px_20px_-10px_rgba(43,26,16,0.10)] ${
-                    tinted ? "bg-tangerine-soft/50" : "bg-white"
-                  }`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span
-                      className={`flex h-12 w-12 items-center justify-center rounded-full border-2 border-dashed border-tangerine/45 font-mono text-sm font-bold text-ember ${
-                        tinted ? "bg-white" : "bg-cream"
-                      }`}
-                    >
-                      {step.n}
-                    </span>
-                    <span
-                      className={`flex h-10 w-10 items-center justify-center rounded-full ${
-                        tinted
-                          ? "bg-white text-ember shadow-sm"
-                          : "bg-tangerine-soft text-ember"
-                      }`}
-                    >
-                      <Icon className="h-5 w-5" aria-hidden="true" />
-                    </span>
-                  </div>
-                  <h3 className="mt-5 font-display text-xl font-semibold text-ink">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                    {step.body}
-                  </p>
-                  {i === 0 && (
-                    <div className="mt-4 flex-1 overflow-hidden rounded-2xl border border-border/70">
-                      <img
-                        src={IMAGES.qrScan ?? ""}
-                        alt="A guest scanning the table QR code with her phone"
-                        loading="lazy"
-                        decoding="async"
-                        className="aspect-[16/10] w-full object-cover"
-                      />
-                    </div>
-                  )}
-                  <p className="mt-4 border-t border-dashed border-ember/20 pt-3 font-mono text-[10.5px] font-bold uppercase leading-relaxed tracking-[0.06em] text-ember/90">
-                    {step.detail}
-                  </p>
-                </article>
-              </StaggerItem>
-            );
-          })}
-        </Stagger>
-      </div>
-
-      <Reveal delay={0.1}>
-        <div className="mt-12 flex justify-center">
-          <CTAButtons
-            primaryLabel="Request early access"
-            secondaryLabel="Full walkthrough"
-            secondaryRoute="how-it-works"
-            align="center"
-          />
-        </div>
-      </Reveal>
-    </Section>
   );
 }
 
@@ -366,64 +249,6 @@ function FeaturesSection() {
   );
 }
 
-function FaqTeaserSection() {
-  const { navigate } = useRouter();
-  return (
-    <Section
-      tone="white"
-      id="faq"
-      className="relative z-10 -mt-6 rounded-t-[2.5rem] shadow-[0_-18px_48px_-28px_rgba(34,17,7,0.45)]"
-    >
-      {/* centered header — Petpooja pattern */}
-      <div className="mx-auto max-w-2xl text-center">
-        <Reveal>
-          <PillBadge>Questions</PillBadge>
-        </Reveal>
-        <Reveal delay={0.08}>
-          <H2 className="mt-5">Asked by every restaurant owner.</H2>
-        </Reveal>
-        <Reveal delay={0.16}>
-          <p className="mt-4 leading-relaxed text-ink-soft">
-            The honest answers we give on every demo call — before you even
-            have to ask.
-          </p>
-        </Reveal>
-      </div>
-
-      <Reveal delay={0.1} className="mx-auto mt-10 max-w-3xl">
-        <Accordion type="single" collapsible className="w-full space-y-3">
-          {FAQS.slice(0, 4).map((faq, i) => (
-            <AccordionItem
-              key={faq.q}
-              value={`faq-${i}`}
-              className={`rounded-[1.25rem] border-0 px-6 shadow-[0_2px_16px_-10px_rgba(43,26,16,0.08)] transition-colors ${
-                i % 2 === 1 ? "bg-tangerine-soft/40" : "bg-cream"
-              }`}
-            >
-              <AccordionTrigger className="py-5 text-left font-display text-lg font-semibold text-ink hover:no-underline hover:text-tangerine-deep">
-                {faq.q}
-              </AccordionTrigger>
-              <AccordionContent className="pb-5 leading-relaxed text-ink-soft">
-                {faq.a}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
-        <div className="mt-8 flex justify-center">
-          <Button
-            variant="ghost"
-            className="h-12 px-5 text-sm font-bold text-tangerine-deep hover:bg-tangerine-soft"
-            onClick={() => navigate("faq")}
-          >
-            All questions, answered
-            <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
-          </Button>
-        </div>
-      </Reveal>
-    </Section>
-  );
-}
-
 function FinalCtaSection() {
   return (
     <section
@@ -474,11 +299,11 @@ export function HomePage() {
     <>
       <HeroSection />
       <OldWaySection />
-      <StepsSection />
+      <StepsBentoSection />
       <OrderRelaySection />
       <FeaturesSection />
       <FoundingTableSection />
-      <FaqTeaserSection />
+      <FaqMarqueeSection />
       <FinalCtaSection />
     </>
   );

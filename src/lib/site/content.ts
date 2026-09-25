@@ -14,7 +14,7 @@ export const NAV_ITEMS = [
 ];
 
 export const HERO = {
-  eyebrow: "QR dine-in ordering for restaurants",
+  eyebrow: "Made for Indian restaurants",
   headline: "Every table becomes your best waiter.",
   sub: "Tabble puts your menu behind a QR code on the table. Guests browse photos, order from their seats, and pay when they're ready — while every order lands on your kitchen screen the moment they tap.",
   ctaPrimary: "Request early access",
@@ -79,7 +79,7 @@ export const STEPS = [
 ];
 
 export const FEATURES = {
-  kicker: "What's inside",
+  kicker: "Features",
   headline: "An ordering system that works the way your floor works.",
   hero: {
     title: "A menu that sells while you sleep",
@@ -173,7 +173,7 @@ export const FOUNDING = {
 };
 
 export const PROOF = {
-  kicker: "Behind the pass",
+  kicker: "Straight to the kitchen",
   headline: "Every order lands the moment it's placed.",
   sub: "No waiter re-entry, no shouted modifications, no printer between the guest and the chef. Watch one order make the whole trip — from a guest's thumb to your kitchen screen.",
   phoneLabel: "Guest's phone",
@@ -194,34 +194,42 @@ export const PROOF = {
 
 export const FAQS = [
   {
+    tag: "Guests",
     q: "Do my guests need to download an app?",
     a: "No. Tabble runs entirely in the phone's browser — guests scan the QR code on the table and the menu opens instantly. No app store, no sign-up, no password to remember. That's deliberate: every download step loses half your guests.",
   },
   {
+    tag: "Payments",
     q: "What about payments — how does the money reach me?",
     a: "Guests can pay with UPI, cards, or wallets directly from the ordering screen. Payments are processed by a licensed payment gateway and settled to your bank account. You keep using cash if a guest prefers it — Tabble never locks you in.",
   },
   {
+    tag: "Setup",
     q: "How long does it take to get started?",
     a: "For founding restaurants, we set up your menu for you — items, sections, modifiers, photos guidance. Most restaurants review and go live within a few days of their onboarding call. After that, every change is one tap away.",
   },
   {
+    tag: "Hardware",
     q: "Does it work with my kitchen printer or POS?",
     a: "Orders flow to the Tabble kitchen display on any tablet or browser. Printer integrations and POS connections are on the founding roadmap — founding restaurants get them first and help us pick which devices to support.",
   },
   {
+    tag: "Reliability",
     q: "What if the internet drops mid-service?",
     a: "The kitchen display keeps showing every order it has already received, and your floor keeps running on the fallback you already use. We designed Tabble for real restaurants, not demo rooms.",
   },
   {
+    tag: "Pricing",
     q: "What does it cost?",
     a: "There's a free tier to try Tabble on one floor, and paid plans from ₹1,499/month that add payments, insights and more displays. Founding restaurants lock their rate for life. See the pricing page for the full breakdown.",
   },
   {
+    tag: "Hardware",
     q: "Do I need to buy special hardware?",
     a: "No. The kitchen display runs in a browser on any tablet or computer you already own. The QR codes are printed — we send you print-ready files for your table tops.",
   },
   {
+    tag: "Guests",
     q: "Can waiters still take orders for guests who prefer it?",
     a: "Absolutely. Tabble is an extra pair of hands, not a replacement. Plenty of guests — especially larger tables and families — mix both: some order from the phone, the waiter adds for the rest. Every order lands in the same kitchen queue.",
   },

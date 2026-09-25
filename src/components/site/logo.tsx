@@ -1,23 +1,26 @@
 "use client";
 
-import { useRouter, type Route } from "@/lib/site/router";
+import { useRouter } from "@/lib/site/router";
 
-export function LogoMark({ className = "h-9 w-9" }: { className?: string }) {
+/**
+ * The Tabble wordmark — typographic, no icon. The tangerine full stop
+ * is the whole brand gesture: order complete, table turned.
+ */
+export function Wordmark({
+  compact = false,
+  dark = false,
+}: {
+  compact?: boolean;
+  dark?: boolean;
+}) {
   return (
-    <svg viewBox="0 0 64 64" className={className} aria-hidden="true">
-      <rect width="64" height="64" rx="16" fill="#E0600A" />
-      <g fill="#FFFAF3">
-        <rect x="14" y="14" width="12" height="12" rx="3" />
-        <rect x="38" y="14" width="12" height="12" rx="3" />
-        <rect x="14" y="38" width="12" height="12" rx="3" />
-      </g>
-      <g fill="#FFD9B8">
-        <rect x="38" y="38" width="5" height="5" rx="1.5" />
-        <rect x="45" y="38" width="5" height="5" rx="1.5" />
-        <rect x="38" y="45" width="5" height="5" rx="1.5" />
-        <rect x="45" y="45" width="5" height="5" rx="1.5" />
-      </g>
-    </svg>
+    <span
+      className={`font-display font-semibold tracking-tight ${
+        dark ? "text-cream" : "text-ink"
+      } ${compact ? "text-[1.45rem]" : "text-2xl"}`}
+    >
+      Tabble<span className={dark ? "text-tangerine" : "text-tangerine-deep"}>.</span>
+    </span>
   );
 }
 
@@ -32,17 +35,10 @@ export function Logo({
     <button
       type="button"
       onClick={onClick}
-      className="flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+      className="flex items-center rounded-lg px-1 py-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
       aria-label="Tabble — go to home page"
     >
-      <LogoMark className={compact ? "h-8 w-8" : "h-9 w-9"} />
-      <span
-        className={`font-display font-semibold tracking-tight text-ink ${
-          compact ? "text-xl" : "text-2xl"
-        }`}
-      >
-        Tabble
-      </span>
+      <Wordmark compact={compact} />
     </button>
   );
 }
@@ -53,13 +49,10 @@ export function FooterLogo() {
     <button
       type="button"
       onClick={() => navigate("home")}
-      className="flex items-center gap-2.5 rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
+      className="flex items-center rounded-lg px-1 py-0.5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ring"
       aria-label="Tabble — go to home page"
     >
-      <LogoMark className="h-9 w-9" />
-      <span className="font-display text-2xl font-semibold tracking-tight text-cream">
-        Tabble
-      </span>
+      <Wordmark dark />
     </button>
   );
 }

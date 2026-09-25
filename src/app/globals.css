@@ -271,6 +271,50 @@
   animation: lampBreath 6.5s ease-in-out infinite;
 }
 
+/* ─── Marquee craft (bento + FAQ tickers) ──────────────────────── */
+@theme {
+  --animate-marquee: marquee var(--duration, 40s) linear infinite;
+  --animate-marquee-vertical: marquee-vertical var(--duration, 40s) linear
+    infinite;
+}
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--gap, 1rem)));
+  }
+}
+@keyframes marquee-vertical {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(calc(-100% - var(--gap, 1rem)));
+  }
+}
+
+/* QR viewfinder scan line sweeping the photo in the bento scan card */
+@keyframes scanSweep {
+  0% {
+    top: 8%;
+    opacity: 0;
+  }
+  14% {
+    opacity: 1;
+  }
+  86% {
+    opacity: 1;
+  }
+  100% {
+    top: 90%;
+    opacity: 0;
+  }
+}
+.scan-line {
+  animation: scanSweep 2.8s cubic-bezier(0.45, 0, 0.55, 1) infinite;
+}
+
 /* ─── Order-relay craft (proof section) ─────────────────────────── */
 /* The wire: dashes that flow while an order is in flight */
 @keyframes wireDashH {
@@ -394,8 +438,14 @@
   .relay-wire.is-live,
   .relay-wire-v.is-live,
   .wire-socket,
-  .cta-breath {
+  .cta-breath,
+  .scan-line {
     animation: none;
+  }
+  /* Ticker rows freeze to their first panel — never mid-slide */
+  .animate-marquee,
+  .animate-marquee-vertical {
+    animation: none !important;
   }
   html {
     scroll-behavior: auto;

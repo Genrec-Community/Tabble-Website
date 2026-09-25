@@ -23,9 +23,9 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tabble — QR dine-in ordering & restaurant OS",
+  title: "Tabble — Every table becomes your best waiter",
   description:
-    "Guests scan a QR at the table, browse your menu, order and pay from their phone. Orders flow straight to your kitchen display. Tabble is the QR dine-in ordering platform built for restaurants.",
+    "Guests scan the QR code on the table, browse your menu, order and pay from their phone — and every order lands on your kitchen screen the moment it's placed. Now onboarding the first 50 restaurants.",
   keywords: [
     "QR ordering",
     "restaurant SaaS",
@@ -37,9 +37,9 @@ export const metadata: Metadata = {
   authors: [{ name: "Tabble" }],
   icons: { icon: "/favicon.svg" },
   openGraph: {
-    title: "Tabble — QR dine-in ordering & restaurant OS",
+    title: "Tabble — Every table becomes your best waiter",
     description:
-      "Turn every table into a self-ordering table. Guests scan, order and pay from their phone — no app download.",
+      "Guests scan, order and pay from their phone — no app download. Now onboarding the first 50 restaurants.",
     siteName: "Tabble",
     type: "website",
   },

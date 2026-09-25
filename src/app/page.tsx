@@ -38,7 +38,7 @@ function PageSwitcher() {
   useEffect(() => {
     // set document title per route for a real multi-page feel
     const titles: Record<string, string> = {
-      home: "Tabble — QR dine-in ordering & restaurant OS",
+      home: "Tabble — Every table becomes your best waiter",
       features: "Features — Tabble",
       "how-it-works": "How it works — Tabble",
       pricing: "Pricing — Tabble",
