@@ -7,7 +7,6 @@ import { PhoneDemo, DEMO_MENU } from "../phone-demo";
 import { KitchenDisplay } from "../kds-mock";
 import { Reveal, Stagger, StaggerItem } from "../reveal";
 import { Section, Kicker, H2, CTAButtons, ImgSlot } from "../ui-bits";
-import { Breadcrumbs } from "../breadcrumbs";
 import { IMAGES } from "@/lib/site/images";
 import { Check, ChefHat, Wallet, BarChart3, Store, Smartphone, Users } from "lucide-react";
 
@@ -230,7 +229,7 @@ function ViewSection({
   tone,
 }: {
   id: string;
-  kicker: string;
+  kicker?: string;
   headline: string;
   body: string;
   points: { title: string; body: string }[];
@@ -246,11 +245,13 @@ function ViewSection({
         }`}
       >
         <div>
-          <Reveal>
-            <Kicker>{kicker}</Kicker>
-          </Reveal>
+          {kicker && (
+            <Reveal>
+              <Kicker>{kicker}</Kicker>
+            </Reveal>
+          )}
           <Reveal delay={0.08}>
-            <H2 className="mt-4">{headline}</H2>
+            <H2 className={kicker ? "mt-4" : "mt-0"}>{headline}</H2>
           </Reveal>
           <Reveal delay={0.14}>
             <p className="mt-5 leading-relaxed text-ink-soft">{body}</p>
@@ -288,21 +289,13 @@ export function FeaturesPage() {
       {/* page header */}
       <section className="relative overflow-hidden bg-cream warm-glow pt-28 sm:pt-36">
         <div className="mx-auto max-w-3xl px-4 pb-14 text-center sm:px-6 sm:pb-20">
-          <div className="rise rise-1 flex justify-center">
-            <Breadcrumbs trail={["Features"]} />
-          </div>
-          <p className="rise rise-1 mt-5">
-            <Kicker>{FEATURES.kicker}</Kicker>
-          </p>
-          <h1 className="rise rise-2 mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink text-balance sm:text-5xl lg:text-6xl">
-            <span className="mb-4 block font-body text-sm font-bold uppercase tracking-[0.14em] text-ember sm:text-base">
-              QR code ordering features for restaurants
-            </span>
+          <h1 className="rise rise-1 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink text-balance sm:text-5xl lg:text-6xl">
             One system. Three views.
           </h1>
-          <p className="rise rise-3 mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+          <p className="rise rise-2 mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
             Guests get a menu they love. The kitchen gets a queue it can trust.
-            You get the numbers that matter. {FEATURES.headline}
+            You get the numbers that matter — one calm system, three clear
+            views.
           </p>
         </div>
       </section>
@@ -311,7 +304,6 @@ export function FeaturesPage() {
 
       <ViewSection
         id="guests"
-        kicker="For your guests"
         headline="A menu your guests actually enjoy using."
         body="The ordering flow is the product your guests touch. It's fast, photographed beautifully, and works on any phone in seconds — no downloads, no accounts, no friction between hunger and order."
         points={GUEST_POINTS}

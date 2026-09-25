@@ -147,3 +147,22 @@ Stage Summary:
 - Site is on https://tabble.in across canonical/sitemap/robots/OG/JSON-LD; contact email is contact@tabble.in.
 - Resend email is live for contact + waitlist (currently delivering to the Resend account-owner inbox; switch CONTACT_EMAIL + EMAIL_FROM in .env.local after verifying tabble.in at resend.com/domains).
 - Key files: src/components/ui/feature-showcase.tsx, pages/features.tsx, kds-mock.tsx (forceTwoCols), lib/email.ts, api/{contact,waitlist}/route.ts, lib/site/{content,seo,router}.tsx, (marketing)/pricing/page.tsx (redirect), sitemap.ts, globals.css, .env.local.
+
+---
+Task ID: 6
+Agent: main (Super Z)
+Task: Remove user-specified texts (features/home/how-it-works/about heroes), fix FAQ hero + section below, report SEO status
+
+Work Log:
+- features.tsx: removed Breadcrumbs, "Features" kicker, "QR code ordering features for restaurants" h1 eyebrow, "For your guests" kicker (ViewSection kicker now optional); tightened hero sub copy
+- home.tsx: removed "Made for Indian restaurants" pill and "QR code ordering & kitchen display for restaurants" h1 eyebrow; renumbered rise animation stagger
+- how-it-works.tsx: removed Breadcrumbs, "How Tabble works" kicker, "How QR code ordering works, from table scan to kitchen" eyebrow
+- about.tsx: removed Breadcrumbs + "About Tabble" kicker
+- faq.tsx: fixed hero (removed breadcrumb + double "FAQ" label, new clean H1 "Frequently asked questions", tighter chip row, hero padding matched other pages) and removed the -mt-6 rounded-t overlapping white panel -> plain white Section like all other pages
+- Route files (features/how-it-works/about/faq page.tsx): removed breadcrumbJsonLd so schema matches visible content; FAQPage JSON-LD kept
+- Verified: all 5 pages 200, removed strings absent from SSR HTML, heroes screenshotted + VLM-reviewed clean, tsc clean for src/
+
+Stage Summary:
+- All requested text removals done; FAQ hero + list section now visually consistent with the rest of the site
+- SEO status: per-page metadata/canonical/OG/Twitter, JSON-LD (Organization/WebSite/SoftwareApplication/FAQPage), sitemap.ts + robots.ts, lang=en-IN, dynamic OG image, semantic HTML, alt text — all live on https://tabble.in base URL
+- Note: Contact page still has its breadcrumb (user did not request removal there)

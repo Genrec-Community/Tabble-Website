@@ -43,14 +43,7 @@ function HeroSection() {
     >
       <div className="mx-auto grid max-w-7xl items-center gap-12 px-4 pb-16 pt-28 sm:px-6 sm:pt-32 lg:grid-cols-[1.05fr_0.95fr] lg:gap-8 lg:px-8 lg:pb-24 lg:pt-36">
         <div>
-          <p className="rise rise-1 inline-flex items-center gap-2 rounded-full border border-tangerine/30 bg-tangerine-soft px-4 py-1.5 text-xs font-bold uppercase tracking-wide text-ember">
-            <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-            {HERO.eyebrow}
-          </p>
-          <h1 className="rise rise-2 mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl lg:text-[4.2rem]">
-            <span className="mb-4 block font-body text-sm font-bold uppercase tracking-[0.14em] text-ember sm:text-base">
-              QR code ordering &amp; kitchen display for restaurants
-            </span>
+          <h1 className="rise rise-1 font-display text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl lg:text-[4.2rem]">
             Every table becomes your best{" "}
             <span className="relative inline-block text-tangerine-deep">
               waiter.
@@ -70,17 +63,17 @@ function HeroSection() {
               </svg>
             </span>
           </h1>
-          <p className="rise rise-3 mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
+          <p className="rise rise-2 mt-6 max-w-xl text-lg leading-relaxed text-ink-soft">
             {HERO.sub}
           </p>
-          <div className="rise rise-4 mt-8">
+          <div className="rise rise-3 mt-8">
             <CTAButtons
               primaryLabel={HERO.ctaPrimary}
               secondaryLabel={HERO.ctaSecondary}
               secondaryRoute="how-it-works"
             />
           </div>
-          <p className="rise rise-5 mt-6 flex items-start gap-2.5 text-sm leading-relaxed text-ink-soft">
+          <p className="rise rise-4 mt-6 flex items-start gap-2.5 text-sm leading-relaxed text-ink-soft">
             <BadgeCheck
               className="mt-0.5 h-4.5 w-4.5 shrink-0 text-tangerine-deep"
               aria-hidden="true"

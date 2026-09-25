@@ -3,7 +3,6 @@
 import React from "react";
 import { BRAND, FOUNDING } from "@/lib/site/content";
 import { Reveal, Stagger, StaggerItem } from "../reveal";
-import { Breadcrumbs } from "../breadcrumbs";
 import { Section, Kicker, H2, CTAButtons, ImgSlot } from "../ui-bits";
 import { IMAGES } from "@/lib/site/images";
 import { QrCode, HeartHandshake, Eye } from "lucide-react";
@@ -31,16 +30,10 @@ export function AboutPage() {
     <>
       <section className="relative overflow-hidden bg-cream warm-glow pt-28 sm:pt-36">
         <div className="mx-auto max-w-3xl px-4 pb-14 text-center sm:px-6 sm:pb-20">
-          <div className="rise rise-1 flex justify-center">
-            <Breadcrumbs trail={["About"]} />
-          </div>
-          <p className="rise rise-1 mt-5">
-            <Kicker>About Tabble</Kicker>
-          </p>
-          <h1 className="rise rise-2 mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="rise rise-1 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink text-balance sm:text-5xl lg:text-6xl">
             We're building for the Friday-night rush.
           </h1>
-          <p className="rise rise-3 mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+          <p className="rise rise-2 mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
             Tabble is a small team with one obsession: the hour when every
             table is full, the kitchen is at full tilt, and the difference
             between a great night and a rough one is how fast a table can

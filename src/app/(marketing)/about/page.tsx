@@ -1,5 +1,5 @@
 import { AboutPage } from "@/components/site/pages/about";
-import { pageMetadata, JsonLd, breadcrumbJsonLd } from "@/lib/site/seo";
+import { pageMetadata } from "@/lib/site/seo";
 
 export const metadata = pageMetadata({
   title: "About Tabble — Built With Indian Restaurants",
@@ -9,10 +9,5 @@ export const metadata = pageMetadata({
 });
 
 export default function Page() {
-  return (
-    <>
-      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "About", path: "/about" }])} />
-      <AboutPage />
-    </>
-  );
+  return <AboutPage />;
 }

@@ -4,8 +4,7 @@ import React from "react";
 import { FAQS } from "@/lib/site/content";
 import { RouteLink } from "@/lib/site/router";
 import { Reveal } from "../reveal";
-import { Section, Kicker, CTAButtons } from "../ui-bits";
-import { Breadcrumbs } from "../breadcrumbs";
+import { Section, CTAButtons } from "../ui-bits";
 import { Button } from "@/components/ui/button";
 import {
   Accordion,
@@ -102,23 +101,17 @@ export function FaqPage() {
   return (
     <>
       <section className="relative overflow-hidden bg-cream warm-glow pt-28 sm:pt-36">
-        <div className="mx-auto max-w-3xl px-4 pb-12 text-center sm:px-6 sm:pb-14">
-          <div className="rise rise-1 flex justify-center">
-            <Breadcrumbs trail={["FAQ"]} />
-          </div>
-          <div className="rise rise-1 mt-5 flex justify-center">
-            <Kicker>FAQ</Kicker>
-          </div>
-          <h1 className="rise rise-2 mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink text-balance sm:text-5xl lg:text-6xl">
-            Everything restaurant owners ask us about QR ordering.
+        <div className="mx-auto max-w-3xl px-4 pb-14 text-center sm:px-6 sm:pb-20">
+          <h1 className="rise rise-1 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink text-balance sm:text-5xl lg:text-6xl">
+            Frequently asked questions
           </h1>
-          <p className="rise rise-3 mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
+          <p className="rise rise-2 mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">
             Straight answers about guests, UPI payments, setup, hardware and
             what it costs — every one in the open. If yours isn&apos;t here,
             our contact page reaches a human.
           </p>
           {/* category quick-nav — jump straight to what you came for */}
-          <div className="rise rise-4 mt-7 flex flex-wrap items-center justify-center gap-2">
+          <div className="rise rise-3 mt-8 flex flex-wrap items-center justify-center gap-2">
             {GROUPS.map((g) => (
               <a
                 key={g.id}
@@ -133,11 +126,7 @@ export function FaqPage() {
         </div>
       </section>
 
-      <Section
-        tone="white"
-        id="faq-list"
-        className="relative z-10 -mt-6 rounded-t-[2.5rem] shadow-[0_-18px_48px_-28px_rgba(34,17,7,0.45)]"
-      >
+      <Section tone="white" id="faq-list">
         <div className="mx-auto max-w-3xl">
           {GROUPS.map((group, i) => (
             <GroupSection key={group.id} group={group} delay={0.02 + i * 0.04} />

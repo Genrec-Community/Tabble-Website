@@ -1,6 +1,6 @@
 import { FaqPage } from "@/components/site/pages/faq";
 import { FAQS } from "@/lib/site/content";
-import { pageMetadata, JsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/site/seo";
+import { pageMetadata, JsonLd, faqJsonLd } from "@/lib/site/seo";
 
 export const metadata = pageMetadata({
   title: "FAQ — QR Code Ordering for Restaurants — Tabble",
@@ -13,7 +13,6 @@ export default function Page() {
   const allFaqs = FAQS.map((f) => ({ q: f.q, a: f.a }));
   return (
     <>
-      <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "FAQ", path: "/faq" }])} />
       <JsonLd data={faqJsonLd(allFaqs)} />
       <FaqPage />
     </>
