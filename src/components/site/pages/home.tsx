@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useRouter } from "@/lib/site/router";
+import { RouteLink } from "@/lib/site/router";
 import { HERO, PROBLEMS, FEATURES } from "@/lib/site/content";
 import { HeroPhone, DEMO_MENU } from "../phone-demo";
 import { OldWaySection } from "../sections/old-way";
@@ -48,6 +48,9 @@ function HeroSection() {
             {HERO.eyebrow}
           </p>
           <h1 className="rise rise-2 mt-6 font-display text-[2.6rem] font-semibold leading-[1.05] tracking-tight text-ink text-balance sm:text-6xl lg:text-[4.2rem]">
+            <span className="mb-4 block font-body text-sm font-bold uppercase tracking-[0.14em] text-ember sm:text-base">
+              QR code ordering &amp; kitchen display for restaurants
+            </span>
             Every table becomes your best{" "}
             <span className="relative inline-block text-tangerine-deep">
               waiter.
@@ -114,7 +117,6 @@ function HeroSection() {
 }
 
 function FeaturesSection() {
-  const { navigate } = useRouter();
   return (
     <Section
       tone="white"
@@ -160,12 +162,14 @@ function FeaturesSection() {
               ))}
             </ul>
             <Button
+              asChild
               variant="ghost"
               className="mt-7 h-12 px-5 text-sm font-bold text-tangerine-deep hover:bg-tangerine-soft"
-              onClick={() => navigate("features")}
             >
-              Explore all features
-              <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+              <RouteLink route="features">
+                Explore all features
+                <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+              </RouteLink>
             </Button>
           </div>
           {/* menu-editor visual */}

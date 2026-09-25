@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Fraunces, Plus_Jakarta_Sans, Space_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/site/seo";
 
 const fraunces = Fraunces({
   subsets: ["latin"],
@@ -23,25 +24,33 @@ const spaceMono = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Tabble — Every table becomes your best waiter",
-  description:
-    "Guests scan the QR code on the table, browse your menu, order and pay from their phone — and every order lands on your kitchen screen the moment it's placed. Now onboarding the first 50 restaurants.",
+  metadataBase: new URL(SITE_URL),
+  title: {
+    default: `${SITE_NAME} — QR Code Ordering & Kitchen Display System for Restaurants`,
+    template: `%s — ${SITE_NAME}`,
+  },
+  description: SITE_DESCRIPTION,
   keywords: [
-    "QR ordering",
-    "restaurant SaaS",
-    "dine-in ordering",
+    "QR code ordering",
+    "QR code menu",
     "digital menu",
-    "restaurant technology",
+    "contactless ordering",
+    "restaurant ordering system",
+    "kitchen display system",
+    "restaurant SaaS India",
+    "table ordering app",
+    "restaurant POS alternative",
     "Tabble",
   ],
   authors: [{ name: "Tabble" }],
   icons: { icon: "/favicon.svg" },
   openGraph: {
-    title: "Tabble — Every table becomes your best waiter",
-    description:
-      "Guests scan, order and pay from their phone — no app download. Now onboarding the first 50 restaurants.",
-    siteName: "Tabble",
+    siteName: SITE_NAME,
     type: "website",
+    locale: "en_IN",
+  },
+  twitter: {
+    card: "summary_large_image",
   },
 };
 
@@ -57,7 +66,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-IN" suppressHydrationWarning>
       <body
         className={`${fraunces.variable} ${jakarta.variable} ${spaceMono.variable} antialiased bg-background text-foreground`}
       >

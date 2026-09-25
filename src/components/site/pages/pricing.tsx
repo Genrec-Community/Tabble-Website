@@ -3,8 +3,9 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { PRICING } from "@/lib/site/content";
-import { useRouter } from "@/lib/site/router";
+import { RouteLink } from "@/lib/site/router";
 import { Reveal, Stagger, StaggerItem } from "../reveal";
+import { Breadcrumbs } from "../breadcrumbs";
 import { Section, Kicker, CTAButtons } from "../ui-bits";
 import { Button } from "@/components/ui/button";
 import {
@@ -30,7 +31,6 @@ function PricingCard({
   yearly: boolean;
   index: number;
 }) {
-  const { navigate } = useRouter();
   const price = yearly ? plan.yearly : plan.price;
   const monthlyEq = plan.yearly ? Math.round(plan.yearly / 12) : plan.price;
   const save = plan.price * 12 - plan.yearly;
@@ -74,14 +74,14 @@ function PricingCard({
       )}
 
       <Button
+        asChild
         className={`mt-7 h-12 w-full text-base font-bold ${
           plan.recommended
             ? "bg-tangerine text-espresso hover:bg-tangerine/90 shadow-[0_10px_32px_-8px_rgba(249,115,22,0.5)]"
             : "bg-tangerine-deep text-primary-foreground hover:bg-tangerine-deep/90"
         }`}
-        onClick={() => navigate("request-access")}
       >
-        {plan.cta}
+        <RouteLink route="request-access">{plan.cta}</RouteLink>
       </Button>
 
       <ul className="mt-7 space-y-3">
@@ -122,10 +122,16 @@ export function PricingPage() {
     <>
       <section className="relative overflow-hidden bg-cream warm-glow pt-28 sm:pt-36">
         <div className="mx-auto max-w-3xl px-4 pb-10 text-center sm:px-6 sm:pb-14">
-          <p className="rise rise-1">
+          <div className="rise rise-1 flex justify-center">
+            <Breadcrumbs trail={["Pricing"]} />
+          </div>
+          <p className="rise rise-1 mt-5">
             <Kicker>{PRICING.kicker}</Kicker>
           </p>
           <h1 className="rise rise-2 mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink text-balance sm:text-5xl lg:text-6xl">
+            <span className="mb-4 block font-body text-sm font-bold uppercase tracking-[0.14em] text-ember sm:text-base">
+              QR code ordering pricing · plans from ₹0
+            </span>
             {PRICING.headline}
           </h1>
           <p className="rise rise-3 mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">

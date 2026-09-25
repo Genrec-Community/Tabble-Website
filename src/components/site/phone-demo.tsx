@@ -61,7 +61,7 @@ function Thumb({ item }: { item: MenuItem }) {
   return item.img ? (
     <img
       src={item.img}
-      alt={item.name}
+      alt={`${item.name} dish on the Tabble QR menu`}
       className="h-12 w-12 rounded-xl object-cover"
       loading="lazy"
     />

@@ -7,7 +7,7 @@ import { Marquee } from "../magic/marquee";
 import { Reveal } from "../reveal";
 import { Section, H2, CTAButtons, PillBadge } from "../ui-bits";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "@/lib/site/router";
+import { RouteLink } from "@/lib/site/router";
 import { ArrowRight } from "lucide-react";
 import { FAQS } from "@/lib/site/content";
 
@@ -108,7 +108,6 @@ export function MarqueeHint({ className = "" }: { className?: string }) {
  * Full-bleed: rows run edge to edge of the viewport.
  */
 export function FaqMarqueeSection() {
-  const { navigate } = useRouter();
   return (
     <Section
       tone="white"
@@ -142,12 +141,14 @@ export function FaqMarqueeSection() {
       <Reveal delay={0.14}>
         <div className="mt-8 flex justify-center">
           <Button
+            asChild
             variant="ghost"
             className="h-12 px-5 text-sm font-bold text-tangerine-deep hover:bg-tangerine-soft"
-            onClick={() => navigate("faq")}
           >
-            All questions, answered
-            <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+            <RouteLink route="faq">
+              All questions, answered
+              <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+            </RouteLink>
           </Button>
         </div>
       </Reveal>

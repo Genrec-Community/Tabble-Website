@@ -97,3 +97,30 @@ Stage Summary:
 - Home flow now: hero → old-way tickets → BENTO steps (four live tiles, one table's journey) → order-relay wire → features checkerboard → founding board → FAQ ticker → CTA radar.
 - New primitives available site-wide: Marquee, BentoCard (+BentoGrid), animate-marquee utilities, FaqMarqueeRows/MarqueeHint.
 - Key files: src/components/site/magic/{marquee,bento}.tsx, sections/{steps-bento,faq-marquee}.tsx, pages/{home,faq}.tsx, logo.tsx, footer.tsx, globals.css, content.ts, layout.tsx, page.tsx, public/favicon.svg.
+
+---
+Task ID: 5
+Agent: main (Super Z)
+Task: User feedback round 4 — (a) FAQ page back to normal question-answer format, (b) SEO optimization pass taking only the necessary items from a 10-point SEO audit the user supplied.
+
+Work Log:
+- Routing migration (biggest lever): replaced the hash router (single / with #/features…) with real Next.js App Router paths. New src/app/(marketing)/ route group: layout.tsx (Navbar + main + Footer + skip link), template.tsx (framer-motion fade/slide page transitions replacing AnimatePresence PageSwitcher), and 11 real page routes — all prerendered static (build verified ○).
+- src/lib/site/router.tsx rewritten: Route type + ROUTE_PATHS map + RouteLink (next/link wrapper = crawlable <a href>) + useSiteRoute() (usePathname) + useSiteNavigate() (programmatic, kept for founding-table stamp flow) + useRouter() back-compat shim.
+- Converted every interactive navigation to real links: navbar (desktop + mobile sheet), footer (3 columns + legal), logo wordmarks, CTAButtons (Button asChild + RouteLink), home "Explore all features", FAQ marquee CTA, pricing plan CTAs, contact/signup inline CTAs, founding-table menu CTA. Only remaining programmatic nav: founding-table tent stamp animation (intentional).
+- SEO infrastructure (src/lib/site/seo.tsx): SITE_URL=https://tabble.app (single place to update at domain go-live), pageMetadata() helper (unique title/description + canonical + OG + Twitter per page), JsonLd component, builders for Organization, WebSite, SoftwareApplication (3 INR offers ₹0/₹1,499/₹3,999), FAQPage, BreadcrumbList.
+- Root layout: lang="en" → "en-IN", metadataBase, title template + absolute titles, keyword set (QR code menu, contactless ordering, KDS, restaurant POS alternative…), twitter summary_large_image.
+- Per-page metadata: unique keyword-bearing titles + varied descriptions on all 11 routes (verified matrix: title/canonical/og:json every route).
+- app/sitemap.ts (11 routes, priorities, changeFrequency) + app/robots.ts (allow all, disallow /api, sitemap ref) — deleted public/robots.txt to avoid conflict.
+- app/opengraph-image.tsx: branded 1200×630 social card (next/og ImageResponse — cream bg, Tabble. wordmark, tagline, tabble.app pill, QR-corner motif) served at /opengraph-image; explicitly wired into pageMetadata openGraph.images + twitter.images (child openGraph config overrides file-based inheritance — root cause found by testing).
+- FAQ page rebuilt as normal Q&A: keyword H1 "Everything restaurant owners ask us about QR ordering.", 12 Q&As (8 FAQS + 4 pricing FAQs) in 4 groups (Guests / Payments & pricing / Setup & hardware / Reliability), category quick-nav pills, shadcn Accordion (Radix, keyboard accessible), breadcrumbs, dark closing CTA. FAQPage JSON-LD with all 12 Q&As verbatim. Old marquee treatment removed from the page (home ticker kept as visual).
+- Keyword-bearing H1s site-wide: home H1 gains small uppercase line "QR code ordering & kitchen display for restaurants" above the display headline (kept the emotional line); features "QR code ordering features for restaurants"; how-it-works "How QR code ordering works, from table scan to kitchen"; pricing "QR code ordering pricing · plans from ₹0". HERO.sub rewritten to lead with digital menu / UPI / no app download / kitchen display.
+- Breadcrumbs: visible Breadcrumbs component (mono uppercase, Home / X) on features, how-it-works, pricing, about, faq, contact + BreadcrumbList JSON-LD per page.
+- Marquee DOM dedup (audit point 6): Marquee now server-renders ONE copy and clones the rest client-side post-mount (aria-hidden clones); verified FAQ ticker text 4×→1× in SSR HTML; animation + pauseOnHover verified still working (clone count 4, X-position animating).
+- Alt text: qrScan viewfinder photo + dish thumbnails (steps-bento, phone-demo) now descriptive ("X dish on Tabble's QR digital menu"); decorative old-way backdrop stays alt="" (aria-hidden parent, correct).
+- Verification: tsc clean for project files; production build clean (19 routes); all 11 routes 200; unique titles verified; agent-browser flows (pricing nav click → active state + 6 crawlable CTAs, founding tent stamp → /request-access, FAQ accordion expand shows full answer, mobile sheet); zero horizontal overflow at 1440 and 375; VLM reviews: FAQ page 8→ polished (chevron contrast bumped per review), home hero 9.5/10, mobile FAQ + home 9/10, OG card 9/10, subpage keyword headers 9/10. Dev server restarted via scripts/daemon_dev.py.
+
+Stage Summary:
+- Site is now a true multi-page static-prerendered Next.js site: every page individually rankable with its own title/description/canonical/OG + JSON-LD (Organization, WebSite, SoftwareApplication, FAQPage, BreadcrumbList) + sitemap.xml + robots.txt + branded OG image + crawlable internal links + keyword-bearing H1s + deduplicated marquee DOM.
+- FAQ page is a normal, accessible, SEO-optimized Q&A page (12 answers in 4 groups) with FAQPage rich-snippet schema.
+- One config to change at domain go-live: SITE_URL in src/lib/site/seo.tsx.
+- Key files: src/app/(marketing)/**, src/app/{layout,sitemap,robots,opengraph-image}.{tsx,ts}, src/lib/site/seo.tsx, src/lib/site/router.tsx (rewritten), src/components/site/{navbar,footer,logo,ui-bits,breadcrumbs}.tsx, pages/{faq,home,features,how-it-works,pricing,about,contact,signup}.tsx, magic/marquee.tsx.

@@ -6,6 +6,7 @@ import { PhoneDemo, DEMO_MENU } from "../phone-demo";
 import { KitchenDisplay } from "../kds-mock";
 import { Reveal, Stagger, StaggerItem } from "../reveal";
 import { Section, Kicker, H2, CTAButtons, ImgSlot } from "../ui-bits";
+import { Breadcrumbs } from "../breadcrumbs";
 import { IMAGES } from "@/lib/site/images";
 import { Check, ChefHat, Wallet, BarChart3, Store, Smartphone, Users } from "lucide-react";
 
@@ -196,10 +197,16 @@ export function FeaturesPage() {
       {/* page header */}
       <section className="relative overflow-hidden bg-cream warm-glow pt-28 sm:pt-36">
         <div className="mx-auto max-w-3xl px-4 pb-14 text-center sm:px-6 sm:pb-20">
-          <p className="rise rise-1">
+          <div className="rise rise-1 flex justify-center">
+            <Breadcrumbs trail={["Features"]} />
+          </div>
+          <p className="rise rise-1 mt-5">
             <Kicker>{FEATURES.kicker}</Kicker>
           </p>
           <h1 className="rise rise-2 mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink text-balance sm:text-5xl lg:text-6xl">
+            <span className="mb-4 block font-body text-sm font-bold uppercase tracking-[0.14em] text-ember sm:text-base">
+              QR code ordering features for restaurants
+            </span>
             One system. Three views.
           </h1>
           <p className="rise rise-3 mx-auto mt-5 max-w-xl text-lg leading-relaxed text-ink-soft">

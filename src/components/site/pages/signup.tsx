@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { HERO, FOUNDING } from "@/lib/site/content";
-import { useRouter } from "@/lib/site/router";
+import { RouteLink } from "@/lib/site/router";
 import { useForm, validateEmail } from "@/lib/site/form";
 import { Reveal } from "../reveal";
 import { TextField } from "../form-fields";
@@ -11,7 +11,6 @@ import { Button } from "@/components/ui/button";
 import { Check, Loader2, PartyPopper, BadgeCheck } from "lucide-react";
 
 export function SignupPage() {
-  const { navigate } = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [result, setResult] = useState<{ position: number; already: boolean } | null>(null);
   const [topLevelError, setTopLevelError] = useState<string | null>(null);
@@ -103,13 +102,12 @@ export function SignupPage() {
           <Reveal delay={0.26}>
             <p className="mt-8 rounded-2xl border border-border bg-card p-4 text-sm leading-relaxed text-ink-soft">
               Running a restaurant?{" "}
-              <button
-                type="button"
-                onClick={() => navigate("request-access")}
+              <RouteLink
+                route="request-access"
                 className="font-bold text-tangerine-deep underline-offset-4 hover:underline"
               >
                 Request access for your restaurant
-              </button>{" "}
+              </RouteLink>{" "}
               instead — it takes two minutes and puts you in the founding
               cohort directly.
             </p>
@@ -153,10 +151,10 @@ export function SignupPage() {
                   </ol>
                 )}
                 <Button
+                  asChild
                   className="mt-8 h-12 w-full bg-tangerine-deep text-base font-bold text-primary-foreground hover:bg-tangerine-deep/90"
-                  onClick={() => navigate("home")}
                 >
-                  Back to home
+                  <RouteLink route="home">Back to home</RouteLink>
                 </Button>
               </div>
             ) : (

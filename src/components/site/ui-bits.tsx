@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { useRouter, type Route } from "@/lib/site/router";
+import { RouteLink, type Route } from "@/lib/site/router";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, PlayCircle } from "lucide-react";
 
@@ -114,7 +114,6 @@ export function CTAButtons({
   dark?: boolean;
   align?: "left" | "center";
 }) {
-  const { navigate } = useRouter();
   return (
     <div
       className={`flex flex-col gap-3 sm:flex-row sm:items-center ${
@@ -122,30 +121,32 @@ export function CTAButtons({
       }`}
     >
       <Button
+        asChild
         size={size}
         className={`h-13 min-h-12 px-7 text-base font-bold ${
           dark
             ? "bg-tangerine text-espresso hover:bg-tangerine/90 shadow-[0_10px_32px_-8px_rgba(249,115,22,0.55)]"
             : "bg-tangerine-deep text-primary-foreground hover:bg-tangerine-deep/90 shadow-[0_10px_32px_-8px_rgba(224,96,10,0.45)]"
         }`}
-        onClick={() => navigate(primaryRoute)}
       >
-        {primaryLabel}
-        <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+        <RouteLink route={primaryRoute}>
+          {primaryLabel}
+          <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+        </RouteLink>
       </Button>
-      {secondaryLabel && (
+      {secondaryLabel && secondaryRoute && (
         <Button
+          asChild
           size={size}
           variant="ghost"
           className={`h-13 min-h-12 px-6 text-base font-semibold ${
             dark ? "text-cream hover:bg-cream/10" : "text-ink hover:bg-sand/60"
           }`}
-          onClick={() =>
-            secondaryRoute && navigate(secondaryRoute, secondaryAnchor)
-          }
         >
-          <PlayCircle className="mr-1.5 h-5 w-5" aria-hidden="true" />
-          {secondaryLabel}
+          <RouteLink route={secondaryRoute} anchor={secondaryAnchor}>
+            <PlayCircle className="mr-1.5 h-5 w-5" aria-hidden="true" />
+            {secondaryLabel}
+          </RouteLink>
         </Button>
       )}
     </div>

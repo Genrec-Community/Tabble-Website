@@ -32,7 +32,7 @@ function ScanBackground() {
       {IMAGES.qrScan && (
         <img
           src={IMAGES.qrScan}
-          alt=""
+          alt="Guest scanning the QR code on a restaurant table to open the digital menu"
           loading="lazy"
           decoding="async"
           className="h-full w-full object-cover"
@@ -102,7 +102,7 @@ function DishCard({
         {img ? (
           <img
             src={img}
-            alt=""
+            alt={`${name} dish on Tabble's QR digital menu`}
             loading="lazy"
             decoding="async"
             className="h-11 w-11 shrink-0 rounded-xl object-cover"

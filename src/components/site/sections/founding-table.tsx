@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from "react";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { FOUNDING } from "@/lib/site/content";
-import { useRouter } from "@/lib/site/router";
+import { RouteLink, useSiteNavigate } from "@/lib/site/router";
 import { Reveal, Stagger, StaggerItem } from "../reveal";
 import { PillBadge } from "../ui-bits";
 import { Button } from "@/components/ui/button";
@@ -157,7 +157,7 @@ function Tent({
  * stamps it yours. The perks are served as a tasting menu.
  */
 export function FoundingTableSection() {
-  const { navigate } = useRouter();
+  const navigate = useSiteNavigate();
   const reduced = useReducedMotion();
   const [hovered, setHovered] = useState<number | null>(null);
   const [claimed, setClaimed] = useState<number | null>(null);
@@ -367,12 +367,14 @@ export function FoundingTableSection() {
 
                 <div className="mt-7 border-t border-ink/10 pt-5">
                   <Button
+                    asChild
                     size="lg"
                     className="h-13 min-h-12 w-full bg-tangerine-deep px-7 text-base font-bold text-white shadow-[0_14px_32px_-10px_rgba(224,96,10,0.55)] hover:bg-tangerine-deep/90"
-                    onClick={() => navigate("request-access")}
                   >
-                    {FOUNDING.menu.cta}
-                    <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                    <RouteLink route="request-access">
+                      {FOUNDING.menu.cta}
+                      <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                    </RouteLink>
                   </Button>
                   <p className="mt-3.5 text-center font-mono text-[9.5px] font-bold uppercase tracking-[0.16em] text-ink-soft/80">
                     {FOUNDING.menu.footnote}

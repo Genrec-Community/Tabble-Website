@@ -16,7 +16,7 @@ export const NAV_ITEMS = [
 export const HERO = {
   eyebrow: "Made for Indian restaurants",
   headline: "Every table becomes your best waiter.",
-  sub: "Tabble puts your menu behind a QR code on the table. Guests browse photos, order from their seats, and pay when they're ready — while every order lands on your kitchen screen the moment they tap.",
+  sub: "Tabble puts your digital menu behind a QR code on the table. Guests browse photos, order from their seats and pay by UPI — no app download — while every order lands on your kitchen display the moment they tap.",
   ctaPrimary: "Request early access",
   ctaSecondary: "See how it works",
   trust: "Founding cohort is open — the first 50 restaurants lock founding pricing for life.",

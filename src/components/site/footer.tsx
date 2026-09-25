@@ -1,10 +1,10 @@
 "use client";
 
-import { useRouter } from "@/lib/site/router";
+import { RouteLink, type Route } from "@/lib/site/router";
 import { BRAND } from "@/lib/site/content";
 import { FooterLogo } from "./logo";
 
-const COLUMNS: { title: string; links: { label: string; route: Parameters<typeof String>[0] }[] }[] = [
+const COLUMNS: { title: string; links: { label: string; route: Route }[] }[] = [
   {
     title: "Product",
     links: [
@@ -31,7 +31,6 @@ const COLUMNS: { title: string; links: { label: string; route: Parameters<typeof
 ];
 
 export function Footer() {
-  const { navigate } = useRouter();
   const year = new Date().getFullYear();
 
   return (
@@ -60,13 +59,12 @@ export function Footer() {
               <ul className="mt-4 space-y-1">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <button
-                      type="button"
-                      onClick={() => navigate(link.route as never)}
+                    <RouteLink
+                      route={link.route}
                       className="flex min-h-11 items-center rounded-md text-sm text-cream/80 transition-colors hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
                     >
                       {link.label}
-                    </button>
+                    </RouteLink>
                   </li>
                 ))}
               </ul>
@@ -79,20 +77,18 @@ export function Footer() {
             © {year} {BRAND.name}. Made for restaurants and the people who run them.
           </p>
           <div className="flex flex-wrap gap-x-6 gap-y-2">
-            <button
-              type="button"
-              onClick={() => navigate("terms")}
+            <RouteLink
+              route="terms"
               className="inline-flex min-h-11 items-center rounded-md text-sm text-cream/60 transition-colors hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               Terms of Service
-            </button>
-            <button
-              type="button"
-              onClick={() => navigate("privacy")}
+            </RouteLink>
+            <RouteLink
+              route="privacy"
               className="inline-flex min-h-11 items-center rounded-md text-sm text-cream/60 transition-colors hover:text-cream focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
             >
               Privacy Policy
-            </button>
+            </RouteLink>
           </div>
         </div>
       </div>

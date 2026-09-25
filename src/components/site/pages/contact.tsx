@@ -2,16 +2,16 @@
 
 import React, { useState } from "react";
 import { BRAND, CONTACT_TOPICS } from "@/lib/site/content";
-import { useRouter } from "@/lib/site/router";
+import { RouteLink } from "@/lib/site/router";
 import { useForm, validateEmail, validateRequired } from "@/lib/site/form";
 import { Reveal } from "../reveal";
+import { Breadcrumbs } from "../breadcrumbs";
 import { Section, Kicker } from "../ui-bits";
 import { TextField, TextAreaField, SelectField } from "../form-fields";
 import { Button } from "@/components/ui/button";
 import { Check, Loader2, Mail, MessageCircle, ArrowRight } from "lucide-react";
 
 export function ContactPage() {
-  const { navigate } = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [sent, setSent] = useState(false);
   const [topLevelError, setTopLevelError] = useState<string | null>(null);
@@ -66,7 +66,10 @@ export function ContactPage() {
     <>
       <section className="relative overflow-hidden bg-cream warm-glow pt-28 sm:pt-36">
         <div className="mx-auto max-w-3xl px-4 pb-12 text-center sm:px-6 sm:pb-16">
-          <p className="rise rise-1">
+          <div className="rise rise-1 flex justify-center">
+            <Breadcrumbs trail={["Contact"]} />
+          </div>
+          <p className="rise rise-1 mt-5">
             <Kicker>Contact</Kicker>
           </p>
           <h1 className="rise rise-2 mt-4 font-display text-4xl font-semibold leading-[1.08] tracking-tight text-ink text-balance sm:text-5xl">
@@ -100,11 +103,13 @@ export function ContactPage() {
                 </p>
                 <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row">
                   <Button
+                    asChild
                     className="h-12 bg-tangerine-deep px-7 font-bold text-primary-foreground hover:bg-tangerine-deep/90"
-                    onClick={() => navigate("request-access")}
                   >
-                    Request early access
-                    <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                    <RouteLink route="request-access">
+                      Request early access
+                      <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                    </RouteLink>
                   </Button>
                   <Button
                     variant="ghost"
@@ -230,12 +235,14 @@ export function ContactPage() {
                   first reply.
                 </p>
                 <Button
+                  asChild
                   variant="ghost"
                   className="mt-3 min-h-11 px-4 text-sm font-bold text-tangerine-deep hover:bg-tangerine-soft"
-                  onClick={() => navigate("request-access")}
                 >
-                  Request access instead
-                  <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                  <RouteLink route="request-access">
+                    Request access instead
+                    <ArrowRight className="ml-1 h-4 w-4" aria-hidden="true" />
+                  </RouteLink>
                 </Button>
               </div>
             </Reveal>
