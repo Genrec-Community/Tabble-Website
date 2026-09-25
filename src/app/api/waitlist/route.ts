@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import {
+  sendEmail,
+  CONTACT_EMAIL,
+  waitlistNotificationHtml,
+} from "@/lib/email";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -91,7 +96,33 @@ export async function POST(req: NextRequest) {
       where: { source, createdAt: { lte: entry.createdAt } },
     });
 
-    return NextResponse.json({ ok: true, position, alreadyRegistered: false });
+    // Best-effort inbox notification — the DB row is the source of truth,
+    // so a Resend failure never fails the submit.
+    const result = await sendEmail({
+      to: CONTACT_EMAIL,
+      subject:
+        source === "request"
+          ? `Founding cohort request #${position} — ${restaurantName || email}`
+          : `New sign-up #${position} — ${email}`,
+      html: waitlistNotificationHtml({
+        source,
+        name: name || null,
+        email,
+        restaurantName: restaurantName || null,
+        phone: phone || null,
+        city: city || null,
+        outlets: outlets || null,
+        position,
+      }),
+      replyTo: email,
+    });
+
+    return NextResponse.json({
+      ok: true,
+      position,
+      alreadyRegistered: false,
+      emailSent: result.ok,
+    });
   } catch (err) {
     console.error("waitlist error", err);
     return NextResponse.json(

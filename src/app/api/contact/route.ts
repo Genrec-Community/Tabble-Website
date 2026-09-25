@@ -1,5 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { db } from "@/lib/db";
+import {
+  sendEmail,
+  CONTACT_EMAIL,
+  contactNotificationHtml,
+} from "@/lib/email";
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
@@ -44,7 +49,17 @@ export async function POST(req: NextRequest) {
     await db.contactMessage.create({
       data: { name, email, topic, message },
     });
-    return NextResponse.json({ ok: true });
+
+    // Best-effort inbox notification — the DB row is the source of truth,
+    // so a Resend failure never fails the submit.
+    const result = await sendEmail({
+      to: CONTACT_EMAIL,
+      subject: `Contact form — ${topic} — ${name}`,
+      html: contactNotificationHtml({ name, email, topic, message }),
+      replyTo: email,
+    });
+
+    return NextResponse.json({ ok: true, emailSent: result.ok });
   } catch (err) {
     console.error("contact error", err);
     return NextResponse.json(

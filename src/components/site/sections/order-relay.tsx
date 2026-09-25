@@ -61,22 +61,24 @@ function SceneCaption({ children }: { children: React.ReactNode }) {
  * flight, freezes the instant it lands on the kitchen screen.
  */
 function FlightTimer({ phase }: { phase: Phase }) {
-  const [t, setT] = useState(0);
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    if (phase === "fly") {
-      const start = performance.now();
-      let raf = 0;
-      const tick = (now: number) => {
-        const p = Math.min(1, (now - start) / FLY_MS);
-        setT(FINAL_S * p);
-        if (p < 1) raf = requestAnimationFrame(tick);
-      };
-      raf = requestAnimationFrame(tick);
-      return () => cancelAnimationFrame(raf);
-    }
-    setT(phase === "landed" ? FINAL_S : 0);
+    if (phase !== "fly") return;
+    const start = performance.now();
+    let raf = 0;
+    const tick = (now: number) => {
+      const p = Math.min(1, (now - start) / FLY_MS);
+      setProgress(p);
+      if (p < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(raf);
   }, [phase]);
+
+  // Display value is derived, never stored — no state write off the fly phase.
+  const t =
+    phase === "fly" ? FINAL_S * progress : phase === "landed" ? FINAL_S : 0;
 
   const done = phase === "landed";
   return (

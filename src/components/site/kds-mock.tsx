@@ -51,11 +51,14 @@ export function KitchenDisplay({
   orders,
   landedUid = null,
   dense = false,
+  forceTwoCols = false,
   className = "",
 }: {
   orders?: DisplayOrder[];
   landedUid?: number | null;
   dense?: boolean;
+  /** Always render tickets in two columns — for fixed-height frames on mobile. */
+  forceTwoCols?: boolean;
   className?: string;
 }) {
   const reduced = useReducedMotion();
@@ -76,7 +79,7 @@ export function KitchenDisplay({
               ? { ...o, status: "served" as const }
               : o
         );
-        return [{ ...next, status: "new", uid: tick + 10 }, ...aged].slice(0, 4);
+        return [{ ...next, status: "new" as const, uid: tick + 10 }, ...aged].slice(0, 4);
       });
     }, 3800);
     return () => clearInterval(t);
@@ -126,7 +129,15 @@ export function KitchenDisplay({
         </span>
       </div>
 
-      <div className={dense ? "grid gap-2.5 p-3.5" : "grid gap-3 p-4 sm:grid-cols-2 sm:p-5"}>
+      <div
+        className={
+          dense
+            ? "grid gap-2.5 p-3.5"
+            : forceTwoCols
+              ? "grid grid-cols-2 gap-3 p-4 sm:p-5"
+              : "grid gap-3 p-4 sm:grid-cols-2 sm:p-5"
+        }
+      >
         <AnimatePresence initial={false} mode="popLayout">
           {list.map((order) => {
             const meta = STATUS_META[order.status];

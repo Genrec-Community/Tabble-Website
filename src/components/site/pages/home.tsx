@@ -287,8 +287,8 @@ function FinalCtaSection() {
           <div className="mt-9 flex justify-center">
             <CTAButtons
               primaryLabel="Request early access"
-              secondaryLabel="See pricing"
-              secondaryRoute="pricing"
+              secondaryLabel="Talk to us"
+              secondaryRoute="contact"
               align="center"
             />
           </div>

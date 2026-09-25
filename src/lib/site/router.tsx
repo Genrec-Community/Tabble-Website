@@ -14,7 +14,6 @@ export type Route =
   | "home"
   | "features"
   | "how-it-works"
-  | "pricing"
   | "about"
   | "contact"
   | "faq"
@@ -27,7 +26,6 @@ export const ROUTE_PATHS: Record<Route, string> = {
   home: "/",
   features: "/features",
   "how-it-works": "/how-it-works",
-  pricing: "/pricing",
   about: "/about",
   contact: "/contact",
   faq: "/faq",

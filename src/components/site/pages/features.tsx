@@ -2,6 +2,7 @@
 
 import React from "react";
 import { FEATURES } from "@/lib/site/content";
+import { FeatureShowcase, type TabMedia } from "@/components/ui/feature-showcase";
 import { PhoneDemo, DEMO_MENU } from "../phone-demo";
 import { KitchenDisplay } from "../kds-mock";
 import { Reveal, Stagger, StaggerItem } from "../reveal";
@@ -128,6 +129,96 @@ function InsightsMock() {
   );
 }
 
+/**
+ * Interactive product tour — one tabbed panel carrying the three views
+ * (guest menu / kitchen display / insights) with the journey steps alongside.
+ */
+function TourSection() {
+  const tabs: TabMedia[] = [
+    {
+      value: "guests",
+      label: "Guest menu",
+      content: (
+        <div
+          className="flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-b from-cream-deep to-sand/60 p-3 sm:p-6"
+          role="img"
+          aria-label="A guest's phone running the Tabble QR menu: dish photos, prices and a cart"
+        >
+          <div className="rounded-[2.4rem] border-[10px] border-espresso bg-cream shadow-[0_32px_64px_-28px_rgba(43,26,16,0.45)]">
+            <div className="h-[500px] w-[272px] overflow-hidden rounded-[1.7rem]">
+              <PhoneDemo menu={DEMO_MENU} />
+            </div>
+          </div>
+        </div>
+      ),
+    },
+    {
+      value: "kitchen",
+      label: "Kitchen",
+      content: (
+        <div
+          className="flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-b from-cream-deep to-sand/60 p-3 pb-14 sm:p-6 sm:pb-14"
+          aria-label="The Tabble kitchen display with live orders"
+        >
+          {/* pb-14 keeps the floating tab pill clear of the last ticket row */}
+          <KitchenDisplay forceTwoCols className="h-full w-full max-w-[440px]" />
+        </div>
+      ),
+    },
+    {
+      value: "insights",
+      label: "Insights",
+      content: (
+        <div
+          className="flex h-full w-full items-center justify-center overflow-hidden bg-gradient-to-b from-cream-deep to-sand/60 p-3 sm:p-6"
+          aria-label="The Tabble owner dashboard with sample sales insights"
+        >
+          <div className="w-full max-w-[520px]">
+            <InsightsMock />
+          </div>
+        </div>
+      ),
+    },
+  ];
+
+  return (
+    <FeatureShowcase
+      className="bg-card"
+      eyebrow="Product tour"
+      title="See it the way your restaurant will."
+      description="Switch between the guest menu, the kitchen display and your owner dashboard — three views of the same live order, from scan to settled payment."
+      stats={["No app for guests", "UPI built in", "Runs on any device"]}
+      steps={[
+        {
+          id: "tour-scan",
+          title: "Guests scan and order",
+          text: "The QR code on the table opens your photo-first menu in the browser — no app, no sign-up. Customisations and notes are typed by the guest, not paraphrased mid-rush.",
+        },
+        {
+          id: "tour-kitchen",
+          title: "The kitchen fires instantly",
+          text: "The order lands on the kitchen display the moment it's placed — sequenced, complete, notes unedited. No printer, no re-entry, no shouting across the pass.",
+        },
+        {
+          id: "tour-pay",
+          title: "Payment happens at the table",
+          text: "Guests pay by UPI, card or wallet from the same screen whenever they're ready. Tables turn faster and nobody hunts for the card machine.",
+        },
+        {
+          id: "tour-numbers",
+          title: "You watch the numbers",
+          text: "Best sellers, peak hours, ticket sizes and payment reconciliation — recorded as it happens, ready when you are.",
+        },
+      ]}
+      tabs={tabs}
+      defaultTab="guests"
+      panelMinHeight={580}
+      ctaPrimary={{ label: "Request early access", href: "/request-access" }}
+      ctaSecondary={{ label: "Talk to us", href: "/contact" }}
+    />
+  );
+}
+
 function ViewSection({
   id,
   kicker,
@@ -216,21 +307,21 @@ export function FeaturesPage() {
         </div>
       </section>
 
+      <TourSection />
+
       <ViewSection
         id="guests"
         kicker="For your guests"
         headline="A menu your guests actually enjoy using."
         body="The ordering flow is the product your guests touch. It's fast, photographed beautifully, and works on any phone in seconds — no downloads, no accounts, no friction between hunger and order."
         points={GUEST_POINTS}
-        tone="white"
+        tone="cream"
         visual={
-          <div className="mx-auto w-fit">
-            <div className="rounded-[2.4rem] border-[10px] border-espresso bg-cream shadow-[0_32px_64px_-28px_rgba(43,26,16,0.45)]">
-              <div className="h-[520px] w-[290px] overflow-hidden rounded-[1.7rem]">
-                <PhoneDemo menu={DEMO_MENU} />
-              </div>
-            </div>
-          </div>
+          <ImgSlot
+            src={IMAGES.diners}
+            alt="Guests enjoying a meal together at a restaurant table"
+            ratio="aspect-[4/3]"
+          />
         }
       />
 
@@ -243,13 +334,11 @@ export function FeaturesPage() {
         tone="deep"
         flip
         visual={
-          <div className="relative">
-            <div
-              className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-tangerine/10 blur-2xl"
-              aria-hidden="true"
-            />
-            <KitchenDisplay />
-          </div>
+          <ImgSlot
+            src={IMAGES.owner}
+            alt="A kitchen team working together during a busy service"
+            ratio="aspect-[4/3]"
+          />
         }
       />
 
@@ -260,7 +349,13 @@ export function FeaturesPage() {
         body="Tabble records every order, payment and table turn as it happens. The insights view turns that into decisions — what to push, what to retire, when to staff up."
         points={OWNER_POINTS}
         tone="white"
-        visual={<InsightsMock />}
+        visual={
+          <ImgSlot
+            src={IMAGES.interior}
+            alt="A cozy, warmly lit restaurant interior with neatly set tables"
+            ratio="aspect-[4/3]"
+          />
+        }
       />
 
       {/* everything else */}
@@ -323,8 +418,8 @@ export function FeaturesPage() {
           <div className="mt-14 text-center">
             <CTAButtons
               primaryLabel="Request early access"
-              secondaryLabel="See pricing"
-              secondaryRoute="pricing"
+              secondaryLabel="Talk to us"
+              secondaryRoute="contact"
               align="center"
             />
           </div>

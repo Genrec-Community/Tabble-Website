@@ -94,7 +94,7 @@ export default function OpengraphImage() {
                 borderRadius: 999,
               }}
             >
-              tabble.app
+              tabble.in
             </div>
             <div style={{ fontSize: 26, color: "#7A6552", fontWeight: 600 }}>
               Now onboarding the first 50 restaurants

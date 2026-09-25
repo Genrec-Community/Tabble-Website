@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import { FAQS, PRICING } from "@/lib/site/content";
+import { FAQS } from "@/lib/site/content";
 import { RouteLink } from "@/lib/site/router";
 import { Reveal } from "../reveal";
 import { Section, Kicker, CTAButtons } from "../ui-bits";
@@ -37,10 +37,9 @@ const GROUPS: Group[] = [
     id: "payments-pricing",
     label: "Payments & pricing",
     icon: Wallet,
-    items: [
-      ...FAQS.filter((f) => f.tag === "Payments" || f.tag === "Pricing").map(({ q, a }) => ({ q, a })),
-      ...PRICING.faqs,
-    ],
+    items: FAQS.filter(
+      (f) => f.tag === "Payments" || f.tag === "Pricing"
+    ).map(({ q, a }) => ({ q, a })),
   },
   {
     id: "setup-hardware",

@@ -1,5 +1,5 @@
 import { FaqPage } from "@/components/site/pages/faq";
-import { FAQS, PRICING } from "@/lib/site/content";
+import { FAQS } from "@/lib/site/content";
 import { pageMetadata, JsonLd, breadcrumbJsonLd, faqJsonLd } from "@/lib/site/seo";
 
 export const metadata = pageMetadata({
@@ -10,10 +10,7 @@ export const metadata = pageMetadata({
 });
 
 export default function Page() {
-  const allFaqs = [
-    ...FAQS.map((f) => ({ q: f.q, a: f.a })),
-    ...PRICING.faqs.map((f) => ({ q: f.q, a: f.a })),
-  ];
+  const allFaqs = FAQS.map((f) => ({ q: f.q, a: f.a }));
   return (
     <>
       <JsonLd data={breadcrumbJsonLd([{ name: "Home", path: "/" }, { name: "FAQ", path: "/faq" }])} />

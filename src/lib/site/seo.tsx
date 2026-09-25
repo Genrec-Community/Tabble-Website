@@ -4,12 +4,12 @@ import type { Metadata } from "next";
  * Central SEO config. Update SITE_URL once when the final domain goes live —
  * canonicals, sitemap, robots, OG URLs and JSON-LD all derive from it.
  */
-export const SITE_URL = "https://tabble.app";
+export const SITE_URL = "https://tabble.in";
 export const SITE_NAME = "Tabble";
 export const SITE_TAGLINE = "Every table becomes your best waiter.";
 export const SITE_DESCRIPTION =
   "Tabble is a QR code ordering system for restaurants — guests scan, order and pay from their phone, and every order lands on your kitchen display the moment it's placed. Now onboarding the first 50 restaurants.";
-export const SITE_EMAIL = "hello@tabble.app";
+export const SITE_EMAIL = "contact@tabble.in";
 
 /** Per-page metadata: unique title + description, canonical, OG and Twitter. */
 export function pageMetadata({
@@ -82,7 +82,7 @@ export function organizationJsonLd() {
   ];
 }
 
-/** SoftwareApplication with the three public plans as offers. */
+/** SoftwareApplication — identity for the product (no public price list; rates are shared on the onboarding call). */
 export function softwareAppJsonLd() {
   return {
     "@context": "https://schema.org",
@@ -93,29 +93,6 @@ export function softwareAppJsonLd() {
     url: SITE_URL,
     description:
       "QR code ordering and kitchen display system for restaurants. Guests scan a table QR code, order and pay from their phone — no app download — while orders reach the kitchen screen instantly.",
-    offers: [
-      {
-        "@type": "Offer",
-        name: "Starter",
-        price: "0",
-        priceCurrency: "INR",
-        description: "Free plan — QR menu for one outlet with guest ordering.",
-      },
-      {
-        "@type": "Offer",
-        name: "Growth",
-        price: "1499",
-        priceCurrency: "INR",
-        description: "₹1,499/month — unlimited menu, payments, insights, 3 kitchen displays.",
-      },
-      {
-        "@type": "Offer",
-        name: "Pro",
-        price: "3999",
-        priceCurrency: "INR",
-        description: "₹3,999/month — up to 5 outlets, cross-outlet reports, API access.",
-      },
-    ],
   };
 }
 

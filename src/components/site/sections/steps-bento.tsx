@@ -257,8 +257,9 @@ function PayLoopBackground() {
 
   useEffect(() => {
     if (reduced) {
-      setPaid(true);
-      return;
+      // Async (post-paint) so hydration never mismatches the server render.
+      const raf = requestAnimationFrame(() => setPaid(true));
+      return () => cancelAnimationFrame(raf);
     }
     const t = setInterval(() => setPaid((p) => !p), 2600);
     return () => clearInterval(t);

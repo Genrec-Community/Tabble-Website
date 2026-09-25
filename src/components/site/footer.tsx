@@ -10,7 +10,6 @@ const COLUMNS: { title: string; links: { label: string; route: Route }[] }[] = [
     links: [
       { label: "Features", route: "features" },
       { label: "How it works", route: "how-it-works" },
-      { label: "Pricing", route: "pricing" },
     ],
   },
   {

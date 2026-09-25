@@ -1,14 +1,13 @@
 export const BRAND = {
   name: "Tabble",
   tagline: "Every table becomes your best waiter.",
-  email: "hello@tabble.app",
+  email: "contact@tabble.in",
 };
 
 export const NAV_ITEMS = [
   { label: "Home", route: "home" as const },
   { label: "Features", route: "features" as const },
   { label: "How it works", route: "how-it-works" as const },
-  { label: "Pricing", route: "pricing" as const },
   { label: "About", route: "about" as const },
   { label: "FAQ", route: "faq" as const },
 ];
@@ -221,7 +220,7 @@ export const FAQS = [
   {
     tag: "Pricing",
     q: "What does it cost?",
-    a: "There's a free tier to try Tabble on one floor, and paid plans from ₹1,499/month that add payments, insights and more displays. Founding restaurants lock their rate for life. See the pricing page for the full breakdown.",
+    a: "We keep pricing simple and share exact numbers on your onboarding call, because the right setup differs by restaurant — tables, outlets and displays all matter. Founding restaurants lock their rate for life. Request access or write to us and we'll send founding rates for your restaurant.",
   },
   {
     tag: "Hardware",
@@ -233,111 +232,27 @@ export const FAQS = [
     q: "Can waiters still take orders for guests who prefer it?",
     a: "Absolutely. Tabble is an extra pair of hands, not a replacement. Plenty of guests — especially larger tables and families — mix both: some order from the phone, the waiter adds for the rest. Every order lands in the same kitchen queue.",
   },
-];
-
-export const PRICING = {
-  kicker: "Pricing",
-  headline: "Simple pricing. Founding rates locked for life.",
-  sub: "Start free, upgrade when it's earning its keep. No hardware to buy, no lock-in contracts — cancel anytime.",
-  monthly: [
-    {
-      name: "Starter",
-      price: 0,
-      yearly: 0,
-      blurb: "Try Tabble on one floor and watch it work.",
-      cta: "Start free",
-      recommended: false,
-      features: [
-        "QR menu, up to 30 items",
-        "1 outlet, 1 kitchen display",
-        "Guest ordering flow",
-        "Standard UPI payments",
-        "Email support",
-      ],
-      missing: ["Sales insights", "Multi-outlet", "API access"],
-    },
-    {
-      name: "Growth",
-      price: 1499,
-      yearly: 14990,
-      blurb: "The full ordering system for a busy restaurant.",
-      cta: "Request early access",
-      recommended: true,
-      features: [
-        "Unlimited menu items & modifiers",
-        "1 outlet, 3 kitchen displays",
-        "UPI, cards & wallets",
-        "Sales insights & reports",
-        "Multilingual menus",
-        "Priority chat support",
-      ],
-      missing: ["Multi-outlet", "API access"],
-    },
-    {
-      name: "Pro",
-      price: 3999,
-      yearly: 39990,
-      blurb: "For chains and high-volume kitchens.",
-      cta: "Request early access",
-      recommended: false,
-      features: [
-        "Everything in Growth",
-        "Up to 5 outlets, one login",
-        "Cross-outlet reports",
-        "API access & custom branding",
-        "Dedicated onboarding",
-        "Founder-direct support line",
-      ],
-      missing: [],
-    },
-  ],
-  guarantee: [
-    {
-      title: "Cancel anytime",
-      body: "Monthly plans, no contracts. If Tabble isn't earning its keep, you leave — no exit fees, no notice period.",
-    },
-    {
-      title: "No hardware to buy",
-      body: "Runs on the tablets and browsers you already own. QR codes are print files we send you.",
-    },
-    {
-      title: "Founding rates are forever",
-      body: "Join the founding cohort and your price never goes up for as long as you stay.",
-    },
-  ],
-  compare: {
-    columns: ["Starter", "Growth", "Pro"],
-    rows: [
-      { feature: "QR menu", values: ["Up to 30 items", "Unlimited", "Unlimited"] },
-      { feature: "Outlets", values: ["1", "1", "Up to 5"] },
-      { feature: "Kitchen displays", values: ["1", "3", "Unlimited*"] },
-      { feature: "Payments (UPI, cards, wallets)", values: ["Standard", "Full", "Full"] },
-      { feature: "Sales insights", values: [false, true, true] },
-      { feature: "Multilingual menus", values: [false, true, true] },
-      { feature: "Cross-outlet reports", values: [false, false, true] },
-      { feature: "API access", values: [false, false, true] },
-      { feature: "Support", values: ["Email", "Priority chat", "Founder line"] },
-    ],
+  {
+    tag: "Pricing",
+    q: "Is there a setup fee?",
+    a: "No setup fee — and for founding restaurants, menu setup is done by us, free. After launch you can edit everything yourself in minutes.",
   },
-  faqs: [
-    {
-      q: "Is there a setup fee?",
-      a: "No setup fee — and for founding restaurants, menu setup is done by us, free. After launch you can edit everything yourself in minutes.",
-    },
-    {
-      q: "What happens after the founding cohort fills up?",
-      a: "Pricing stays the same for everyone who joins later — but founding members keep extra perks (free menu setup, founder line, priority features) that new members won't get.",
-    },
-    {
-      q: "Do you take a cut of my orders?",
-      a: "On paid plans, no commission on orders. Standard payment-gateway fees apply on card and wallet transactions, same as any payment you'd take today.",
-    },
-    {
-      q: "Can I switch plans later?",
-      a: "Yes — upgrade or downgrade anytime, and the change applies from your next billing cycle. Founding rates follow you across plans within the cohort terms.",
-    },
-  ],
-};
+  {
+    tag: "Pricing",
+    q: "What happens after the founding cohort fills up?",
+    a: "Pricing stays the same for everyone who joins later — but founding members keep extra perks (free menu setup, founder line, priority features) that new members won't get.",
+  },
+  {
+    tag: "Pricing",
+    q: "Do you take a cut of my orders?",
+    a: "No commission on orders. Standard payment-gateway fees apply on card and wallet transactions, same as any payment you'd take today.",
+  },
+  {
+    tag: "Pricing",
+    q: "Can I switch plans later?",
+    a: "Yes — upgrade or downgrade anytime, and the change applies from your next billing cycle. Founding rates follow you across plans within the cohort terms.",
+  },
+];
 
 export const CONTACT_TOPICS = [
   "General question",
